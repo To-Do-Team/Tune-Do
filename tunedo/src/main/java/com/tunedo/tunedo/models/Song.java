@@ -1,6 +1,12 @@
 package com.tunedo.tunedo.models;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -34,4 +40,12 @@ public class Song extends BaseModel {
     @NotNull
     @NotEmpty
     private String url;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "songs_categories",
+        joinColumns = @JoinColumn(name = "song_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories; 
 }
