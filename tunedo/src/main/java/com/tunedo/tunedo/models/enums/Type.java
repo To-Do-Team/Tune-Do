@@ -1,4 +1,4 @@
-package com.tunedo.tunedo.models;
+package com.tunedo.tunedo.models.enums;
 
 import lombok.Getter;
 

@@ -2,6 +2,9 @@ package com.tunedo.tunedo.models;
 
 import java.time.Instant;
 
+import com.tunedo.tunedo.models.enums.Status;
+import com.tunedo.tunedo.models.enums.Type;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
