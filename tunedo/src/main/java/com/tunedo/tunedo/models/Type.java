@@ -1,0 +1,17 @@
+package com.tunedo.tunedo.models;
+
+import lombok.Getter;
+
+@Getter
+public enum Type {
+    UI("Hazlo"),
+    UN("Planifica"),
+    NI("Delega"),
+    NN("Elimínala o aplázala");
+
+    private String description;
+
+    Type(String description){
+        this.description=description;
+    }
+}
