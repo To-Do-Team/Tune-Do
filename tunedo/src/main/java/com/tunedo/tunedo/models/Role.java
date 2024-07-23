@@ -1,6 +1,9 @@
 package com.tunedo.tunedo.models;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -20,4 +23,7 @@ public class Role extends BaseModel {
     @NotEmpty
     @Size(min = 3)
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 }
