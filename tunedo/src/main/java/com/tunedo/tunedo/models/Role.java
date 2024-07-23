@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "rols")
+@Table(name = "roles")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Rol extends BaseModel {
+public class Role extends BaseModel {
         
     @NotNull
     @NotEmpty
