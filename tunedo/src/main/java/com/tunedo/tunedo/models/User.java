@@ -1,7 +1,11 @@
 package com.tunedo.tunedo.models;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
@@ -39,4 +43,10 @@ public class User extends BaseModel{
     
     @Transient
     private String passwordConfirmation;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Task> tasks;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Statistic> statistics; 
 }
