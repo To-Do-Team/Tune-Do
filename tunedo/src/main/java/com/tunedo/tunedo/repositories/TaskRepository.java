@@ -10,5 +10,5 @@ import com.tunedo.tunedo.models.Category;
 public interface TaskRepository extends BaseRepository<Task> {
     List<Task> findByStatus(Status status);
     Task findByCategories(Category category);
-    List<Task> findByDeadlineLessAndStatusNotDone(Instant date);
+    List<Task> findByDeadlineLessThanAndStatusNot(Instant instant,Status status);
 }

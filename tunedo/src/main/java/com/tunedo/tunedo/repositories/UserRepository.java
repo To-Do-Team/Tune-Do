@@ -4,5 +4,5 @@ import com.tunedo.tunedo.models.User;
 
 public interface UserRepository extends BaseRepository<User> {
     User findByEmail(String email);
-    User existsByEmail();
+    User existsByEmail(String email);
 }
