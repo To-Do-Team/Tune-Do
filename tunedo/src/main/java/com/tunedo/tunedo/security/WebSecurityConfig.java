@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
 
 import jakarta.servlet.DispatcherType;
@@ -23,6 +24,8 @@ public class WebSecurityConfig {
         .authorizeHttpRequests(
             (auth) -> auth
                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR)
+                .permitAll()
+                .requestMatchers("/css/**","/js/**")
                 .permitAll()
                 .requestMatchers(
                     HttpMethod.GET,
@@ -66,4 +69,9 @@ public class WebSecurityConfig {
 
     return http.build();
     }
+
+    /* @Bean
+    WebSecurityCustomizer customizer(){
+        return (web) -> web.ignoring().requestMatchers("/css/**","/js/**");
+    } */
 }
