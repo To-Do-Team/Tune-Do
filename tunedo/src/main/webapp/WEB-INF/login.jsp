@@ -14,7 +14,7 @@
     crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="d-flex justify-content-center m-5">
+    <div class="d-flex flex-column align-items-center justify-content-center m-5">
         <h1 class="text-primary">Tune-Do</h1>
         <span class="text-danger ">
             <c:out value="${logoutMessage}" />

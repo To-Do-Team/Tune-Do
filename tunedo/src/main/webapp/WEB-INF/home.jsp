@@ -15,13 +15,13 @@
 <body>
     <div class="d-flex justify-content-around my-3">
         <h6>Hola, <c:out value="${user.getName()}" /></h6>
-        <a href="/logout">Cerrar Sesión</a>
+        <a href="/?logout">Cerrar Sesión</a>
     </div>
     <div class="d-flex flex-column align-items-evenly m-auto w-75">
-        <h2 class="text-primary">Todas las canciones :</h2>
+        <h2 class="text-primary">Todas tus tareas:</h2>
         <div class="d-flex p-3 my-3 justify-content-between border-3 border-bottom border-secondary">
-            <h3>Canción</h3>
-            <h3># de colaboradores</h3>
+            <h3>Tarea</h3>
+            <h3>Categorías</h3>
         </div>
         <c:forEach items="${tasks}" var="task">
         <div class="d-flex justify-content-between my-3">
@@ -39,7 +39,7 @@
         </div>
         </c:forEach>
         <div class="d-flex justify-content-start my-5">
-            <a class="text-decoration-none text-light bg-danger border border-danger rounded px-2 py-1" href="tasks/new"><- Nueva canción</a>
+            <a class="text-decoration-none text-light bg-danger border border-danger rounded px-2 py-1" href="tasks/new"><- Nueva tarea</a>
         </div>
     </div>
 </body>

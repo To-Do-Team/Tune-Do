@@ -44,7 +44,7 @@ public class UserController {
             model.addAttribute("errorMessage", "Usuario o contraseña incorrectos.");
         }
         if(logout != null) {
-            model.addAttribute("logoutMessage", "Terminaste la sesión");
+            model.addAttribute("logoutMessage", "Se cerró la sesión");
         }
         return "login.jsp";
     }
