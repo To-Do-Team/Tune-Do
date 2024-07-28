@@ -26,7 +26,7 @@ public class HomeController {
     ) {
         User user = userService.findByEmail("obisporicapa@gmail.com");
         model.addAttribute("user", user);
-        return "home.jsp";
+        return "home1-1.jsp";
     }
     
 }
