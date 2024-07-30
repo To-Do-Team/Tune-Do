@@ -1,3 +1,14 @@
 .text-red{
     color:red !important;
 }
+.task{
+    cursor: move;
+}
+
+.is-dragging{
+    scale: .85;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
+    background: rgb(50,50,50);
+    color: rgb(50,50,50);
+    transform: rotate(3deg);
+}
