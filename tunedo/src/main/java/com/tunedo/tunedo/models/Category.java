@@ -26,12 +26,12 @@ public class Category extends BaseModel {
     @NotEmpty
     @Size(min = 3)
     private String name;
-       
+
     @NotNull
     @NotEmpty
     @Size(min = 10)
     private String description;
-   
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "categories_tasks",
