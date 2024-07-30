@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +28,12 @@ import com.tunedo.tunedo.services.UserService;
 public class HomeController {
     private final UserService userService;
     private final TaskService taskService;
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
     @Autowired
     private ObjectMapper objectMapper; 
+
+    
 
     public HomeController(TaskService taskService,UserService userService) {
         this.userService = userService;
@@ -58,7 +64,7 @@ public class HomeController {
             String tasksJson = objectMapper.writeValueAsString(simplifiedTasksByType);
             model.addAttribute("tasksJson", tasksJson);
         } catch (JsonProcessingException e) {
-            // Handle exception
+            logger.error("Error serializing simplifiedTasksByType to JSON", e);
         }
         return "home.jsp";
     }
