@@ -1,6 +1,3 @@
-.text-red{
-    color:red !important;
-}
 .task{
     cursor: move;
 }
@@ -11,4 +8,8 @@
     background: rgb(50,50,50);
     color: rgb(50,50,50);
     transform: rotate(3deg);
+}
+
+.button-add{
+    cursor: pointer;
 }
