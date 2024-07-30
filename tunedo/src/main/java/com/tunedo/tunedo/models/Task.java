@@ -3,6 +3,7 @@ package com.tunedo.tunedo.models;
 import java.time.Instant;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tunedo.tunedo.models.enums.Status;
 import com.tunedo.tunedo.models.enums.Type;
 
@@ -13,6 +14,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -29,7 +31,6 @@ public class Task extends BaseModel{
     
     @NotNull
     @NotEmpty
-    @Size(min = 3)
     private String title;
 
     @NotNull
@@ -37,18 +38,21 @@ public class Task extends BaseModel{
     @Size(min = 3)
     private String description;
 
-    @NotNull
-    @NotEmpty
-    @Size(min = 3)
     private String notes;
 
+    @Future
     private Instant deadline;
     
     private Status status;
 
-    private Type Type;
+    private Double position;
+
+    private Type type;
+
+    private Integer dueReminder;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinTable(
         name = "categories_tasks",
         joinColumns = @JoinColumn(name = "task_id"),
@@ -57,6 +61,7 @@ public class Task extends BaseModel{
     private List<Category> categories; 
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name="user_id")
     private User user;
 }
