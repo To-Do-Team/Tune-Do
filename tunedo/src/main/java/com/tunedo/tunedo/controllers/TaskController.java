@@ -53,10 +53,14 @@ public class TaskController {
     public String saveTaskString(
         @Valid @ModelAttribute("task") Task task,
         BindingResult result,
+        Model model,
         @RequestParam("dueDateString") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDateLocal,
         @RequestParam("category") Long categoryId
     ) {
         if(result.hasErrors()){
+            model.addAttribute("types", Type.values());
+            model.addAttribute("statuses", Status.values());
+            model.addAttribute("categories", categoryService.findAll());
             return "newTask.jsp";
         }
         if(categoryId!=null){

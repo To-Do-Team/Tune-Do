@@ -31,7 +31,6 @@ public class Task extends BaseModel{
     
     @NotNull
     @NotEmpty
-    @Size(min = 3)
     private String title;
 
     @NotNull
