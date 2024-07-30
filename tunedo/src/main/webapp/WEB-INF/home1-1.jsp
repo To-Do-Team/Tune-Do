@@ -8,15 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     
-    <script src="/js/main.js"></script>
-    <script src="/js/drag.js" defer></script>
-    <script>
-        var tasksData = JSON.parse('<c:out value="${tasksJson}" escapeXml="false"/>');
-    </script>
+    <script src="/js/script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css"  rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
-    <link rel="stylesheet" href="/css/style.css">
 
 </head>
 <body class="">
@@ -78,46 +73,42 @@
                         <div class="mt-8 grid gap-4 md:grid-cols-1 lg:grid-cols-2">
 
                             <!-- <div class="bg-gray-900 text-white flex justify-center items-center h-screen"> -->
-                            <c:forEach items="${tasksByType.entrySet()}" var="entry">
-                                <div class="flex items-center justify-center gap-4">
-                                    <div class="bg-white dark:bg-gray-800 p-4 rounded-lg w-96 shadow-lg">
-                                        <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white"><c:out value="${entry.getKey().getDescription()}" /></h2>
 
-                                        <div class="overflow-y-auto h-48 swim-lane" data-type="${entry.getKey().name()}">
-                                            <!-- Repeat the above block for each task -->
-                                            <c:forEach items="${entry.getValue()}" var="task">
-                                                <div id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="task flex items-start gap-4 p-2 border-b border-gray-300 dark:border-gray-700" draggable="true">
-                                                <span class="shrink-0 rounded-lg bg-gray-100 dark:bg-gray-900 p-2">
-                                                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                                                        <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
-                                                    </svg>
-                                                </span>
-                                                <div class="flex-1">
-                                                    <h3 class="text-lg font-bold text-gray-900 dark:text-white"><c:out value="${task.getTitle()}" /></h3>
-                                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400"><c:out value="${task.getDescription()}" /></p>
-                                                </div>
-                                                <div>
-                                                    <span class="text-sm text-gray-500 dark:text-gray-400">timeReminder.</span>
-                                                </div>
-                                                <input type="checkbox" class="ml-4 form-checkbox h-5 w-5 text-blue-600 rounded">
-                                                </div>
-                                            </c:forEach>
+                            <div class="flex items-center justify-center gap-4">
+                                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg w-96 shadow-lg">
+                                    <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white">No Urgente Importante</h2>
+                            
+                                    <div class="overflow-y-auto h-48">
+                                        <div class="flex items-start gap-4 p-2 border-b border-gray-300 dark:border-gray-700">
+                                            <span class="shrink-0 rounded-lg bg-gray-100 dark:bg-gray-900 p-2">
+                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                                                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
+                                                </svg>
+                                            </span>
+                                            <div class="flex-1">
+                                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Title</h3>
+                                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Descript</p>
+                                            </div>
+                                            <div>
+                                                <span class="text-sm text-gray-500 dark:text-gray-400">timeReminder.</span>
+                                            </div>
+                                            <input type="checkbox" class="ml-4 form-checkbox h-5 w-5 text-blue-600 rounded">
                                         </div>
-
-                                        <a href="tasks/new" class="button-add mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
-                                            <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                                            </svg>
-                                            Añadir tarea
-                                        </a>
+                                        <!-- Repeat the above block for each task -->
                                     </div>
-                                </div>  
-                            </c:forEach>
-                                                        
+                            
+                                    <button class="mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
+                                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                        </svg>
+                                        Añadir tarea
+                                    </button>
+                                </div>
+                            </div>                              
                                     
-                            <%-- <div class="flex items-center justify-center gap-4">
+                            <div class="flex items-center justify-center gap-4">
                                 <div class="bg-white dark:bg-gray-800 p-4 rounded-lg w-96 shadow-lg">
                                     <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white">No Urgente Importante</h2>
                             
@@ -217,7 +208,7 @@
                                         Añadir tarea
                                     </button>
                                 </div>
-                            </div> --%>
+                            </div>
                             
                         </div>
                     </div>
