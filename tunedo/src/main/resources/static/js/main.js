@@ -23,4 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-  
+document.addEventListener("keyup", e => {
+
+    if (e.key === "Escape")e.target.value = "";
+
+    if (e.target.matches("#search")) {
+        document.querySelectorAll(".taskL").forEach(task => {
+            task.textContent.toLowerCase().includes(e.target.value.toLowerCase())
+                ?task.classList.remove("filter")
+                :task.classList.add("filter");
+        })
+    }
+})
