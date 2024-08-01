@@ -12,12 +12,19 @@ public class EmailManager {
         this.mailSerder = mailSerder;
     }
 
-    public void sendEmail(String to,String subject, String body){
+    public void sendEmail(
+            String to,
+            String subject,
+            String body){
+
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("janedoecd2024@gmail.com");
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
+
         mailSerder.send(message);
+
+        System.out.println("Mail Sent");
     }
 }
