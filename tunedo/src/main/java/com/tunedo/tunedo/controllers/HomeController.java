@@ -45,7 +45,7 @@ public class HomeController {
         Principal principal,
         Model model
     ) {
-        User user = userService.findByEmail("obisporicapa@gmail.com");
+        User user =userService.findByEmail(principal.getName());
         List<Task> tasks = taskService.findByUserOrdered(user);
         Map<Type, List<Task>> tasksByType =taskService.rearrangeTasks(tasks);
         Map<String, List<TaskUpdateDTO>> simplifiedTasksByType = new HashMap<>();

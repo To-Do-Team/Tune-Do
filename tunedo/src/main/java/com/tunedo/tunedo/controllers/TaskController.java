@@ -1,5 +1,6 @@
 package com.tunedo.tunedo.controllers;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,7 @@ import com.tunedo.tunedo.services.TaskService;
 import com.tunedo.tunedo.services.UserService;
 
 import jakarta.validation.Valid;
+
 
 
 @Controller
@@ -53,6 +56,7 @@ public class TaskController {
     public String saveTaskString(
         @Valid @ModelAttribute("task") Task task,
         BindingResult result,
+        Principal principal,
         Model model,
         @RequestParam("dueDateString") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDateLocal,
         @RequestParam("category") Long categoryId
@@ -69,7 +73,7 @@ public class TaskController {
         if(dueDateLocal!=null){
             task.setDeadline(dueDateLocal.atZone(ZoneId.systemDefault()).toInstant());
         }
-        User user = userService.findByEmail("obisporicapa@gmail.com");
+        User user = userService.findByEmail(principal.getName());
         List<Task> lastTask = taskService.findByUserAndType(user, task.getType());
         task.setUser(user);
         if(lastTask.size()==0){
@@ -80,6 +84,46 @@ public class TaskController {
         taskService.save(task);        
         return "redirect:/home";
     }
+
+    @GetMapping("/{id}/editing")
+    public String editTask(
+        Principal principal,
+        Model model,
+        @PathVariable("id") Long id,
+        @ModelAttribute("task") Task task
+        ) {
+            model.addAttribute("types", Type.values());
+            model.addAttribute("statuses", Status.values());
+            model.addAttribute("categories", categoryService.findAll());
+            User user = userService.findByEmail(principal.getName());
+            task = taskService.findByUserAndId(user, id);
+            if(task==null){
+                return "return:/home";
+            }
+            model.addAttribute("task", task);
+            return "editTask.jsp";
+    }
+    
+
+    @PostMapping("/{id}/editing")
+    public String saveEdit(
+        @PathVariable("id") Long id,
+        @Valid @ModelAttribute("task") Task task,
+        Model model,
+        BindingResult result
+        ) {
+        if(result.hasErrors()){
+            model.addAttribute("types", Type.values());
+            model.addAttribute("statuses", Status.values());
+            model.addAttribute("categories", categoryService.findAll());
+            return "editTask";
+        }
+        Task oldTask = taskService.findById(id);
+        taskService.update(oldTask,task);
+        taskService.save(oldTask);
+        return "redirect:/home";
+    }
+    
     
     
 }

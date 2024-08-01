@@ -17,4 +17,5 @@ public interface TaskRepository extends BaseRepository<Task> {
     List<Task> findByUserOrderByPosition(User user);
     List<Task> findByUserAndTypeOrderByPositionAsc(User user, Type type);
     List<Task> findByUserOrderByPositionAsc(User user);
+    Task findByUserAndId(User user, Long id);
 }

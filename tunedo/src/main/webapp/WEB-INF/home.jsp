@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="/css/style.css">
 
 </head>
-<body class="">
+<body class="content">
     <header>
         <nav class="bg-white border-gray-200 dark:bg-gray-900">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -45,7 +45,7 @@
                         <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
                     </li>
                     <li>
-                        <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Log Out</a>
+                        <a href="/logout" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Log Out</a>
                     </li>
                     <li>
                         <label class=" py-0   inline-flex items-center cursor-pointer">
@@ -70,20 +70,28 @@
         
     </header>
     <main>
-        <div class="bg-white border-gray-200 dark:bg-gray-900">
-            <section class="max-w-screen-xl flex flex-wrap items-start justify-between mx-auto p-4 text-white bg-white border-gray-200 dark:bg-gray-900 grid grid-cols-1 md:grid-cols-3">
-
+        <div class="min-h-full bg-white border-gray-200 dark:bg-gray-900">
+            <div class="max-w-screen-xl flex flex-wrap items-start justify-between mx-auto ">
+                <h2 class="text-xl font-semibold text-center text-gray-900 dark:text-white mt-6 px-9 ml-4">
+                    Hola, <c:out value="${user.getName()}" />
+                </h2>
+            </div>
+            <section class="max-w-screen-xl flex flex-wrap items-start justify-between mx-auto px-4 text-white bg-white border-gray-200 dark:bg-gray-900 grid grid-cols-1 md:grid-cols-3">
+                
+                <!-- Left part -->
                 <div class="col-span-2 px-4 py-0 flex flex-col justify-center">
                     <div class="max-w-screen-xl px-4 py-0 sm:px-6 sm:py-12 lg:px-8 lg:py-0">
                         <div class="mt-8 grid gap-4 md:grid-cols-1 lg:grid-cols-2">
 
-                            <!-- <div class="bg-gray-900 text-white flex justify-center items-center h-screen"> -->
+                                <!-- <div class="bg-gray-900 text-white flex justify-center items-center h-screen"> -->
                             <c:forEach items="${tasksByType.entrySet()}" var="entry">
                                 <div class="flex items-center justify-center gap-4">
                                     <div class="bg-white dark:bg-gray-800 p-4 rounded-lg w-96 shadow-lg">
-                                        <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white"><c:out value="${entry.getKey().getDescription()}" /></h2>
+                                        <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white">
+                                            <c:out value="${entry.getKey().getDescription()}" />
+                                        </h2>
 
-                                        <div class="overflow-y-auto h-48 swim-lane" data-type="${entry.getKey().name()}">
+                                        <div class="overflow-y-auto h-48 swim-lane custom-scrollbar" data-type="${entry.getKey().name()}">
                                             <!-- Repeat the above block for each task -->
                                             <c:forEach items="${entry.getValue()}" var="task">
                                                 <div id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="task flex items-start gap-4 p-2 border-b border-gray-300 dark:border-gray-700" draggable="true">
@@ -97,9 +105,10 @@
                                                 <div class="flex-1">
                                                     <h3 class="text-lg font-bold text-gray-900 dark:text-white"><c:out value="${task.getTitle()}" /></h3>
                                                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400"><c:out value="${task.getDescription()}" /></p>
+                                                    <a href="tasks/<c:out value="${task.getId()}" />/editing"> Editar</a>
                                                 </div>
                                                 <div>
-                                                    <span class="text-sm text-gray-500 dark:text-gray-400">timeReminder.</span>
+                                                    <span class="text-sm text-gray-500 dark:text-gray-400"><c:out value="${task.getDeadline()}" /></span>
                                                 </div>
                                                 <input type="checkbox" class="ml-4 form-checkbox h-5 w-5 text-blue-600 rounded">
                                                 </div>
@@ -115,113 +124,10 @@
                                     </div>
                                 </div>  
                             </c:forEach>
-                                                        
-                                    
-                            <%-- <div class="flex items-center justify-center gap-4">
-                                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg w-96 shadow-lg">
-                                    <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white">No Urgente Importante</h2>
-                            
-                                    <div class="overflow-y-auto h-48">
-                                        <div class="flex items-start gap-4 p-2 border-b border-gray-300 dark:border-gray-700">
-                                            <span class="shrink-0 rounded-lg bg-gray-100 dark:bg-gray-900 p-2">
-                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                                                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
-                                                </svg>
-                                            </span>
-                                            <div class="flex-1">
-                                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Title</h3>
-                                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Descript</p>
-                                            </div>
-                                            <div>
-                                                <span class="text-sm text-gray-500 dark:text-gray-400">timeReminder.</span>
-                                            </div>
-                                            <input type="checkbox" class="ml-4 form-checkbox h-5 w-5 text-blue-600 rounded">
-                                        </div>
-                                        <!-- Repeat the above block for each task -->
-                                    </div>
-                            
-                                    <button class="mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
-                                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                                        </svg>
-                                        Añadir tarea
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center justify-center gap-4">
-                                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg w-96 shadow-lg">
-                                    <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white">Urgente No Importante</h2>
-                            
-                                    <div class="overflow-y-auto h-48">
-                                        <div class="flex items-start gap-4 p-2 border-b border-gray-300 dark:border-gray-700">
-                                            <span class="shrink-0 rounded-lg bg-gray-100 dark:bg-gray-900 p-2">
-                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                                                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
-                                                </svg>
-                                            </span>
-                                            <div class="flex-1">
-                                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Title</h3>
-                                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Descript</p>
-                                            </div>
-                                            <div>
-                                                <span class="text-sm text-gray-500 dark:text-gray-400">timeReminder.</span>
-                                            </div>
-                                            <input type="checkbox" class="ml-4 form-checkbox h-5 w-5 text-blue-600 rounded">
-                                        </div>
-                                        <!-- Repeat the above block for each task -->
-                                    </div>
-                            
-                                    <button class="mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
-                                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                                        </svg>
-                                        Añadir tarea
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <div class="flex items-center justify-center gap-4">
-                                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg w-96 shadow-lg">
-                                    <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white">No Urgente No Importante</h2>
-                            
-                                    <div class="overflow-y-auto h-48">
-                                        <div class="flex items-start gap-4 p-2 border-b border-gray-300 dark:border-gray-700">
-                                            <span class="shrink-0 rounded-lg bg-gray-100 dark:bg-gray-900 p-2">
-                                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                                                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
-                                                </svg>
-                                            </span>
-                                            <div class="flex-1">
-                                                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Title</h3>
-                                                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Descript</p>
-                                            </div>
-                                            <div>
-                                                <span class="text-sm text-gray-500 dark:text-gray-400">timeReminder.</span>
-                                            </div>
-                                            <input type="checkbox" class="ml-4 form-checkbox h-5 w-5 text-blue-600 rounded">
-                                        </div>
-                                        <!-- Repeat the above block for each task -->
-                                    </div>
-                            
-                                    <button class="mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
-                                        <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                                        </svg>
-                                        Añadir tarea
-                                    </button>
-                                </div>
-                            </div> --%>
-                            
                         </div>
                     </div>
                 </div>
+                <!-- Right part -->
                 <div class="px-4 py-8 flex flex-col items-center justify-center ">
                     
                     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-80 shadow-lg items-center">
@@ -229,35 +135,37 @@
                             <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
-                            <input class="bg-gray-200 dark:bg-gray-700 text-sm text-gray-900 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none w-full py-2 px-3" type="text" placeholder="Resumen Tareas">
-                        
-
+                            <input id="search" name="search" class="bg-gray-200 dark:bg-gray-700 text-sm text-gray-900 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none w-full py-2 px-3" type="text" placeholder="Resumen Tareas">
                         </div>
-                    
+                        <!-- Cuadro de tarea -->
                         <div class="overflow-y-auto h-48">
                             <ul class="space-y-2">
-                                <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
-                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-red-600 rounded">
-                                    <div class="flex-grow ml-2">
-                                        <div class="flex justify-between">
-                                            <span class="text-sm text-gray-900 dark:text-gray-200">Encabezado A</span>
-                                            <span class="text-sm text-gray-500 dark:text-gray-400">Encabezado B</span>
-                                        </div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">Celda A</div>
-                                    </div>
-                                </li>
-                                <!-- Repite el bloque anterior para cada tarea -->
+                                <c:forEach items="${tasksByType.entrySet()}" var="entry">
+                                    <c:forEach items="${entry.getValue()}" var="task">
+                                        <li id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="taskL flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg" draggable="true">
+                                            <div class="flex-grow ml-2">
+                                                <div class="flex justify-between">
+                                                    <span class="text-sm text-gray-900 dark:text-gray-200">
+                                                        <c:out value="${task.getTitle()}" />
+                                                    </span>
+                                                </div>
+                                                <div class="text-sm text-gray-500 dark:text-gray-400">
+                                                    <c:out value="${task.getDescription()}" />
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </c:forEach>
+                                </c:forEach>
                             </ul>
-                        </div>
-                    
-                        <button class="mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
+                        </div>                 
+                        <a href="tasks/new" class="mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
                             <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                             </svg>
                             Añadir tarea
-                        </button>
+                        </a>
                     </div>
-                    
+
                     <div class="mt-6 bg-white dark:bg-gray-800 p-6 rounded-lg w-80 shadow-lg items-center">
                         <h2 class="mb-3 text-lg font-semibold text-gray-900 dark:text-white">Tips:</h2>
                         <ul class="max-w-md space-y-2 text-gray-500 list-inside dark:text-gray-400">

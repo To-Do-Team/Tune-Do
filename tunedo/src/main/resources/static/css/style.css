@@ -1,15 +1,52 @@
-.task{
+.task {
     cursor: move;
 }
 
-.is-dragging{
+.is-dragging {
     scale: .85;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
-    background: rgb(50,50,50);
-    color: rgb(50,50,50);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    background: rgb(50, 50, 50);
+    color: rgb(50, 50, 50);
     transform: rotate(3deg);
 }
 
-.button-add{
+.button-add {
     cursor: pointer;
+}
+
+.content {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.filter {
+    display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #999;
+	border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #777;
+	border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
+.swim-lane {
+    padding: 15px;
+    ;
 }
