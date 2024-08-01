@@ -20,26 +20,33 @@
     grid-template-rows: auto 1fr auto;
 }
 
+.filter {
+    display: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+	width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+	background: #999;
+	border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #777;
+	border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #555;
+}
+
 .swim-lane {
     padding: 15px;
     ;
-}
-
-.custom-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: #4B5563 #1F2937;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-    background: #1F2937;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #4B5563;
-    border-radius: 20px;
-    border: 2px solid #1F2937;
 }

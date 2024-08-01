@@ -71,17 +71,25 @@
     </header>
     <main>
         <div class="min-h-full bg-white border-gray-200 dark:bg-gray-900">
-            <section class="max-w-screen-xl flex flex-wrap items-start justify-between mx-auto p-4 text-white bg-white border-gray-200 dark:bg-gray-900 grid grid-cols-1 md:grid-cols-3">
-
+            <div class="max-w-screen-xl flex flex-wrap items-start justify-between mx-auto ">
+                <h2 class="text-xl font-semibold text-center text-gray-900 dark:text-white mt-6 px-9 ml-4">
+                    Hola, <c:out value="${user.getName()}" />
+                </h2>
+            </div>
+            <section class="max-w-screen-xl flex flex-wrap items-start justify-between mx-auto px-4 text-white bg-white border-gray-200 dark:bg-gray-900 grid grid-cols-1 md:grid-cols-3">
+                
+                <!-- Left part -->
                 <div class="col-span-2 px-4 py-0 flex flex-col justify-center">
                     <div class="max-w-screen-xl px-4 py-0 sm:px-6 sm:py-12 lg:px-8 lg:py-0">
                         <div class="mt-8 grid gap-4 md:grid-cols-1 lg:grid-cols-2">
 
-                            <!-- <div class="bg-gray-900 text-white flex justify-center items-center h-screen"> -->
+                                <!-- <div class="bg-gray-900 text-white flex justify-center items-center h-screen"> -->
                             <c:forEach items="${tasksByType.entrySet()}" var="entry">
                                 <div class="flex items-center justify-center gap-4">
                                     <div class="bg-white dark:bg-gray-800 p-4 rounded-lg w-96 shadow-lg">
-                                        <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white"><c:out value="${entry.getKey().getDescription()}" /></h2>
+                                        <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white">
+                                            <c:out value="${entry.getKey().getDescription()}" />
+                                        </h2>
 
                                         <div class="overflow-y-auto h-48 swim-lane custom-scrollbar" data-type="${entry.getKey().name()}">
                                             <!-- Repeat the above block for each task -->
@@ -119,6 +127,7 @@
                         </div>
                     </div>
                 </div>
+                <!-- Right part -->
                 <div class="px-4 py-8 flex flex-col items-center justify-center ">
                     
                     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-80 shadow-lg items-center">
@@ -126,35 +135,37 @@
                             <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
-                            <input class="bg-gray-200 dark:bg-gray-700 text-sm text-gray-900 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none w-full py-2 px-3" type="text" placeholder="Resumen Tareas">
-                        
-
+                            <input id="search" name="search" class="bg-gray-200 dark:bg-gray-700 text-sm text-gray-900 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none w-full py-2 px-3" type="text" placeholder="Resumen Tareas">
                         </div>
-                    
+                        <!-- Cuadro de tarea -->
                         <div class="overflow-y-auto h-48">
                             <ul class="space-y-2">
-                                <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
-                                    <input type="checkbox" class="form-checkbox h-5 w-5 text-red-600 rounded">
-                                    <div class="flex-grow ml-2">
-                                        <div class="flex justify-between">
-                                            <span class="text-sm text-gray-900 dark:text-gray-200">Encabezado A</span>
-                                            <span class="text-sm text-gray-500 dark:text-gray-400">Encabezado B</span>
-                                        </div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">Celda A</div>
-                                    </div>
-                                </li>
-                                <!-- Repite el bloque anterior para cada tarea -->
+                                <c:forEach items="${tasksByType.entrySet()}" var="entry">
+                                    <c:forEach items="${entry.getValue()}" var="task">
+                                        <li id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="taskL flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg" draggable="true">
+                                            <div class="flex-grow ml-2">
+                                                <div class="flex justify-between">
+                                                    <span class="text-sm text-gray-900 dark:text-gray-200">
+                                                        <c:out value="${task.getTitle()}" />
+                                                    </span>
+                                                </div>
+                                                <div class="text-sm text-gray-500 dark:text-gray-400">
+                                                    <c:out value="${task.getDescription()}" />
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </c:forEach>
+                                </c:forEach>
                             </ul>
-                        </div>
-                    
-                        <button class="mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
+                        </div>                 
+                        <a href="tasks/new" class="mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
                             <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                             </svg>
                             Añadir tarea
-                        </button>
+                        </a>
                     </div>
-                    
+
                     <div class="mt-6 bg-white dark:bg-gray-800 p-6 rounded-lg w-80 shadow-lg items-center">
                         <h2 class="mb-3 text-lg font-semibold text-gray-900 dark:text-white">Tips:</h2>
                         <ul class="max-w-md space-y-2 text-gray-500 list-inside dark:text-gray-400">
