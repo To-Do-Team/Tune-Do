@@ -83,7 +83,7 @@
                                     <div class="bg-white dark:bg-gray-800 p-4 rounded-lg w-96 shadow-lg">
                                         <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white"><c:out value="${entry.getKey().getDescription()}" /></h2>
 
-                                        <div class="overflow-y-auto h-48 swim-lane" data-type="${entry.getKey().name()}">
+                                        <div class="overflow-y-auto h-48 swim-lane custom-scrollbar" data-type="${entry.getKey().name()}">
                                             <!-- Repeat the above block for each task -->
                                             <c:forEach items="${entry.getValue()}" var="task">
                                                 <div id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="task flex items-start gap-4 p-2 border-b border-gray-300 dark:border-gray-700" draggable="true">
@@ -97,9 +97,10 @@
                                                 <div class="flex-1">
                                                     <h3 class="text-lg font-bold text-gray-900 dark:text-white"><c:out value="${task.getTitle()}" /></h3>
                                                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400"><c:out value="${task.getDescription()}" /></p>
+                                                    <a href="tasks/<c:out value="${task.getId()}" />/editing"> Editar</a>
                                                 </div>
                                                 <div>
-                                                    <span class="text-sm text-gray-500 dark:text-gray-400">timeReminder.</span>
+                                                    <span class="text-sm text-gray-500 dark:text-gray-400"><c:out value="${task.getDeadline()}" /></span>
                                                 </div>
                                                 <input type="checkbox" class="ml-4 form-checkbox h-5 w-5 text-blue-600 rounded">
                                                 </div>

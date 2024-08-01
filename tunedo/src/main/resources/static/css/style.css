@@ -1,21 +1,45 @@
-.task{
+.task {
     cursor: move;
 }
 
-.is-dragging{
+.is-dragging {
     scale: .85;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.25);
-    background: rgb(50,50,50);
-    color: rgb(50,50,50);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    background: rgb(50, 50, 50);
+    color: rgb(50, 50, 50);
     transform: rotate(3deg);
 }
 
-.button-add{
+.button-add {
     cursor: pointer;
 }
 
-.content{
+.content {
     min-height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
+}
+
+.swim-lane {
+    padding: 15px;
+    ;
+}
+
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #4B5563 #1F2937;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #1F2937;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #4B5563;
+    border-radius: 20px;
+    border: 2px solid #1F2937;
 }
