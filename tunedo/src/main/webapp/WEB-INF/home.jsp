@@ -70,7 +70,7 @@
         
     </header>
     <main>
-        <div class="bg-white border-gray-200 dark:bg-gray-900">
+        <div class="min-h-full bg-white border-gray-200 dark:bg-gray-900">
             <section class="max-w-screen-xl flex flex-wrap items-start justify-between mx-auto p-4 text-white bg-white border-gray-200 dark:bg-gray-900 grid grid-cols-1 md:grid-cols-3">
 
                 <div class="col-span-2 px-4 py-0 flex flex-col justify-center">
