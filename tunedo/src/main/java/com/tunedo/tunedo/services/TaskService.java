@@ -37,6 +37,10 @@ public class TaskService extends BaseService<Task> {
   public List<Task> findByUser(User user){
     return taskRepository.findByUser(user);
   }
+
+  public Task findByUserAndId(User user, Long id){
+    return taskRepository.findByUserAndId(user,id);
+  }
   
   public List<Task> findByUserOrdered(User user){
     return taskRepository.findByUserOrderByPositionAsc(user);
@@ -62,6 +66,31 @@ public class TaskService extends BaseService<Task> {
   }
 
   public Task updateTaskfromDTO(Task task, TaskUpdateDTO updateDTO){
+    if(updateDTO.getType() !=null){
+      task.setType(updateDTO.getType());
+    }
+    if(updateDTO.getTitle() !=null){
+      task.setTitle(updateDTO.getTitle());
+    }
+    if(updateDTO.getStatus() !=null){
+      task.setStatus(updateDTO.getStatus());
+    }
+    if(updateDTO.getPosition() !=null){
+      task.setPosition(updateDTO.getPosition());
+    }
+    if(updateDTO.getNotes() !=null){
+      task.setNotes(updateDTO.getNotes());
+    }
+    if(updateDTO.getDescription() !=null){
+      task.setDescription(updateDTO.getDescription());
+    }
+    if(updateDTO.getDeadline() !=null){
+      task.setDeadline(updateDTO.getDeadline());
+    }
+    return task;
+  }
+
+  public Task update(Task task, Task updateDTO){
     if(updateDTO.getType() !=null){
       task.setType(updateDTO.getType());
     }
