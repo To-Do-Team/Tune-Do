@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.tunedo.tunedo.models.User;
 import com.tunedo.tunedo.repositories.UserRepository;
+import com.tunedo.tunedo.security.PasswordEncoder;
 
 @Service
 public class UserService extends BaseService<User>{
@@ -19,7 +20,20 @@ public class UserService extends BaseService<User>{
         return repository.findByEmail(email);
     }
 
-    public User existsByEmail(String email){
+    public boolean existsByEmail(String email){
         return repository.existsByEmail(email);
+    }
+
+    public User save(User user) {
+        encryptUserPassword(user);
+        user = repository.save(user);
+        return user;
+    }
+
+    private void encryptUserPassword(User user) {
+        String hashedPassword = PasswordEncoder
+            .bCryptPasswordEncoder()
+            .encode(user.getPassword());
+        user.setPassword(hashedPassword);
     }
 }
