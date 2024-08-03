@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.tunedo.tunedo.models.Task;
 import com.tunedo.tunedo.models.User;
+import com.tunedo.tunedo.models.enums.DueReminderOptions;
 import com.tunedo.tunedo.models.enums.Status;
 import com.tunedo.tunedo.models.enums.Type;
 import com.tunedo.tunedo.services.CategoryService;
@@ -49,6 +50,7 @@ public class TaskController {
         model.addAttribute("types", Type.values());
         model.addAttribute("statuses", Status.values());
         model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("reminderOptions", DueReminderOptions.values());
         return "newTask.jsp";
     }
     
@@ -58,13 +60,14 @@ public class TaskController {
         BindingResult result,
         Principal principal,
         Model model,
-        @RequestParam("dueDateString") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDateLocal,
+        @RequestParam(value="dueDateString", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDateLocal,
         @RequestParam("category") Long categoryId
     ) {
         if(result.hasErrors()){
             model.addAttribute("types", Type.values());
             model.addAttribute("statuses", Status.values());
             model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("reminderOptions", DueReminderOptions.values());
             return "newTask.jsp";
         }
         if(categoryId!=null){
@@ -81,6 +84,7 @@ public class TaskController {
         }else{
             task.setPosition(lastTask.getLast().getPosition()+65536.0);
         }
+        task.setReminded(false);
         taskService.save(task);        
         return "redirect:/home";
     }
@@ -110,7 +114,8 @@ public class TaskController {
         @PathVariable("id") Long id,
         @Valid @ModelAttribute("task") Task task,
         Model model,
-        BindingResult result
+        BindingResult result,
+        @RequestParam("dueDateString") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDateLocal
         ) {
         if(result.hasErrors()){
             model.addAttribute("types", Type.values());
@@ -119,6 +124,9 @@ public class TaskController {
             return "editTask";
         }
         Task oldTask = taskService.findById(id);
+        if(dueDateLocal!=null){
+            task.setDeadline(dueDateLocal.atZone(ZoneId.systemDefault()).toInstant());
+        }
         taskService.update(oldTask,task);
         taskService.save(oldTask);
         return "redirect:/home";

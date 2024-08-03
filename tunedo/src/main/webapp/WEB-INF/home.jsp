@@ -108,7 +108,7 @@
                                                     <a href="tasks/<c:out value="${task.getId()}" />/editing"> Editar</a>
                                                 </div>
                                                 <div>
-                                                    <span class="text-sm text-gray-500 dark:text-gray-400"><c:out value="${task.getDeadline()}" /></span>
+                                                    <span class="text-sm text-gray-500 dark:text-gray-400"><c:out value="${task.getDeadlineFormatted()}" /></span>
                                                 </div>
                                                 <input type="checkbox" class="ml-4 form-checkbox h-5 w-5 text-blue-600 rounded">
                                                 </div>

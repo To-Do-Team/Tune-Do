@@ -6,6 +6,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.Customizer;
 
 import jakarta.servlet.DispatcherType;
 
@@ -25,6 +26,8 @@ public class WebSecurityConfig {
                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR)
                 .permitAll()
                 .requestMatchers("/css/**","/js/**")
+                .permitAll()
+                .requestMatchers("/email/**")
                 .permitAll()
                 .requestMatchers(
                     HttpMethod.GET,
@@ -72,7 +75,8 @@ public class WebSecurityConfig {
             .deleteCookies("JSESSIONID"))
         .sessionManagement(session -> session
             .maximumSessions(1)
-            .expiredUrl("/login"));
+            .expiredUrl("/login"))
+        .httpBasic(Customizer.withDefaults());
 
     return http.build();
     }
