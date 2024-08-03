@@ -11,6 +11,7 @@ import com.tunedo.tunedo.models.enums.Type;
 
 public interface TaskRepository extends BaseRepository<Task> {
     List<Task> findByStatus(Status status);
+    List<Task> findByDeadlineBeforeAndDeadlineAfterAndDueReminderIsNotNullAndDueReminderIsGreaterThanEqualAndRemindedFalse(Instant checkTime,Instant now,Integer zero);
     Task findByCategories(Category category);
     List<Task> findByDeadlineLessThanAndStatusNot(Instant instant,Status status);
     List<Task> findByUser(User user);

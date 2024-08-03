@@ -8,11 +8,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Task</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css"  rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div class="d-flex flex-column justify-content-around my-3 m-auto w-75">
@@ -44,7 +43,7 @@
 
         <div>
             <form:label path="deadline">Deadline:</form:label>
-            <input type="datetime-local" id="dueDateInput" name="dueDateString" required />
+            <input type="datetime-local" id="dueDateInput" name="dueDateString"/>
             <form:errors class="alert alert-danger form-text text-muted" path="deadline" />
         </div>
 
@@ -81,6 +80,14 @@
             </select>
         </div>
 
+        <div>
+            <form:label path="dueReminder">Recordatorio:</form:label>
+            <form:select path="dueReminder">
+                <c:forEach items="${reminderOptions}" var="option">
+                    <form:option value="${option.minutes}" label="${option.description}" />
+                </c:forEach>
+            </form:select>
+        </div>
 
         <div class="d-flex justify-content-end w-50">
                 <button class="px-4 my-4">Subir</button>

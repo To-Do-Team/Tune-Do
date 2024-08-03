@@ -14,10 +14,9 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Future;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -33,15 +32,14 @@ public class Task extends BaseModel{
     @NotEmpty
     private String title;
 
-    @NotNull
-    @NotEmpty
-    @Size(min = 3)
     private String description;
 
     private String notes;
-
-    @Future
+    
     private Instant deadline;
+
+    @Transient
+    private String deadlineFormatted;
     
     private Status status;
 
@@ -50,6 +48,8 @@ public class Task extends BaseModel{
     private Type type;
 
     private Integer dueReminder;
+
+    private boolean reminded;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore

@@ -31,9 +31,7 @@ public class HomeController {
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
     @Autowired
-    private ObjectMapper objectMapper; 
-
-    
+    private ObjectMapper objectMapper;
 
     public HomeController(TaskService taskService,UserService userService) {
         this.userService = userService;
@@ -49,12 +47,15 @@ public class HomeController {
         List<Task> tasks = taskService.findByUserOrdered(user);
         Map<Type, List<Task>> tasksByType =taskService.rearrangeTasks(tasks);
         Map<String, List<TaskUpdateDTO>> simplifiedTasksByType = new HashMap<>();
-        
         model.addAttribute("user", user);
         model.addAttribute("types", Type.values());
         model.addAttribute("tasksByType", tasksByType);
+        serializeTasksToJson(model,simplifiedTasksByType, tasksByType);
+        return "home.jsp";
+    }
+    
+    private void serializeTasksToJson(Model model,Map<String, List<TaskUpdateDTO>> simplifiedTasksByType,Map<Type, List<Task>> tasksByType){
         for (Map.Entry<Type, List<Task>> entry : tasksByType.entrySet()) {
-            model.addAttribute("tasks"+entry.getKey().name(), entry.getValue());
             List<TaskUpdateDTO> simplifiedTasks = entry.getValue().stream()
                 .map(task -> new TaskUpdateDTO(task.getId(), task.getPosition()))
                 .collect(Collectors.toList());
@@ -66,7 +67,5 @@ public class HomeController {
         } catch (JsonProcessingException e) {
             logger.error("Error serializing simplifiedTasksByType to JSON", e);
         }
-        return "home.jsp";
     }
-    
 }
