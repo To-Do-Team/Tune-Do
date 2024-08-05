@@ -75,7 +75,9 @@ public class TaskService extends BaseService<Task> {
       tasksByType.put(type, new ArrayList<>());
     }
     for (Task task : tasks) {
-      task.setDeadlineFormatted(formatter.format(task.getDeadline()));
+      if(task.getDeadline()!=null){
+        task.setDeadlineFormatted(formatter.format(task.getDeadline()));
+      }
       for (Type type : Type.values()) {
         if (task.getType() == type) {
           tasksByType.get(type).add(task);
