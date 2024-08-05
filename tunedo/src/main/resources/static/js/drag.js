@@ -105,13 +105,14 @@ const changePosition= (task,position)=>{
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        const index = tasks[previousZone].find(ele => ele.id===data.id);
-        if(index){
-            index.type = data.type;
+        if(previousZone){
+            const index = tasks[previousZone].find(ele => ele.id===data.id);
+            if(index){
+                index.type = data.type;
+            }
+            previousZone=null;
         }
-        
         modal.textContent="Tipo de tarea: "+data.typeDescription;
-        previousZone=null;
     }
         //tasks[data.type][data.id].position=data.position
     )
