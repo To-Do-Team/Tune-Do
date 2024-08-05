@@ -7,7 +7,8 @@ public enum Type {
     UI("Hazlo"),
     UN("Planifica"),
     NI("Delega"),
-    NN("Elimínala o aplázala");
+    NN("Elimínala o aplázala"),
+    Done("Hechas");
 
     private String description;
 

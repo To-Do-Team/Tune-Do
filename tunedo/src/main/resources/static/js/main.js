@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+/* document.addEventListener('DOMContentLoaded', function() {
     const audioPlayer = document.getElementById('audio-player');
     const playButton = document.getElementById('play-button');
 
@@ -69,4 +69,4 @@ document.addEventListener('DOMContentLoaded', function() {
             playButton.textContent = 'Play';
         }
     });
-});
+}); */

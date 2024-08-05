@@ -128,15 +128,6 @@
                                                                         <a onclick="changeStatus(${task.getId()},'${status}')" class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><c:out value="${status.description}" /></a>
                                                                     </li>
                                                                 </c:forEach>
-                                                                    <%-- <li>
-                                                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">To do</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Doing</a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Done</a>
-                                                                    </li> --%>
                                                                 </ul>
                                                             </div> 
                                                         </div>
@@ -188,7 +179,7 @@
                                                                         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                                                                             Deadline: <c:out value="${task.getDeadline()}"/>   
                                                                         </p>
-                                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                        <p id="type-${task.id}" class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                                                                             Tipo de Tarea: <c:out value="${task.type.description}"/> 
                                                     
                                                                         </p>
@@ -239,11 +230,11 @@
                             <input id="search" name="search" class="bg-gray-200 dark:bg-gray-700 text-sm text-gray-900 dark:text-gray-300 placeholder-gray-500 dark:placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-red-500 focus:outline-none w-full py-2 px-3" type="text" placeholder="Resumen Tareas">
                         </div>
                         <!-- Cuadro de tarea -->
-                        <div class="overflow-y-auto h-48">
-                            <ul class="space-y-2">
-                                <c:forEach items="${tasksByType.entrySet()}" var="entry">
+                        <c:forEach items="${donesOnly.entrySet()}" var="entry">
+                        <div class="overflow-y-auto h-48 swim-lane" data-type="${entry.getKey().name()}">
+                            <%-- <ul class="space-y-2"> --%>
                                     <c:forEach items="${entry.getValue()}" var="task">
-                                        <li id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="taskL flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg" draggable="true">
+                                        <div id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="taskL task flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg my-2" draggable="true">
                                             <div class="flex-grow ml-2">
                                                 <div class="flex justify-between">
                                                     <span class="text-sm text-gray-900 dark:text-gray-200">
@@ -254,11 +245,11 @@
                                                     <c:out value="${task.getDescription()}" />
                                                 </div>
                                             </div>
-                                        </li>
-                                    </c:forEach>
+                                        </div>
                                 </c:forEach>
-                            </ul>
+                            <%-- </ul> --%>
                         </div>
+                        </c:forEach>
                         <!-- Boton añadir tarea-->
                         <a href="tasks/new" class="mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
                             <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

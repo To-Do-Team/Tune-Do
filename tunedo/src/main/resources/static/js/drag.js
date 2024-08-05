@@ -88,6 +88,7 @@ const setBottomTopTasks = (closestTask,elements)=>{
 };
 
 const changePosition= (task,position)=>{
+    const modal=document.getElementById("type-"+task.id);
     task.dataset.pos=position;
     const editTask = {
         id: task.id,
@@ -102,8 +103,16 @@ const changePosition= (task,position)=>{
         body: JSON.stringify(editTask)
     })
     .then(response => response.json())
-    .then(data => 
-        console.log(data)
+    .then(data => {
+        console.log(data);
+        const index = tasks[previousZone].find(ele => ele.id===data.id);
+        if(index){
+            index.type = data.type;
+        }
+        
+        modal.textContent="Tipo de tarea: "+data.typeDescription;
+        previousZone=null;
+    }
         //tasks[data.type][data.id].position=data.position
     )
     .catch((error) => console.error('Error:', error));
@@ -114,7 +123,8 @@ const changeStatus= (taskID,status)=>{
     const modal=document.getElementById("status-"+taskID);
     const editTask = {
         id: taskID,
-        status: status
+        status: status,
+        type: status==="Done"?"Done":null
     };
     fetch('/tasks/'+taskID+'/edit', {
         method: 'POST',
@@ -127,9 +137,23 @@ const changeStatus= (taskID,status)=>{
     .then(data => {
         task.childNodes[0].textContent=data.statusDescription;
         modal.textContent="Estado de la tarea: "+data.statusDescription;
-        const index = tasks[data.type].find(ele => ele.id===data.id);
+        /* const index = tasks[data.type].find(ele => ele.id===data.id);
         index.status = data.status;
-        index.statusDescription = data.statusDescription;
+        index.statusDescription = data.statusDescription; */
+        if(status==="Done"){
+            const allLists =[...droppables];
+            const doneList=allLists.find(ele=> ele.dataset.type ===status);
+            newZone=doneList.dataset.type;
+            const thisTask = document.getElementById(taskID);
+            if(doneList.children.length<=0){
+                calculatePosition(thisTask,null,null);
+            }
+            else{
+                const doneToList =[...doneList.children];
+                calculatePosition(thisTask,doneToList[doneToList.length-1],null);
+            }
+            doneList.appendChild(thisTask);
+        }
     }
     )
     .catch((error) => console.error('Error:', error));
@@ -154,7 +178,6 @@ const calculatePosition = (task,topTask,bottomTask)=>{
         position=indexStep;
     }
     changePosition(task, position);
-    previousZone=null;
     topTask=null;
     bottomTask=null;
 };

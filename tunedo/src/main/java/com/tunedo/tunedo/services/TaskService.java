@@ -69,10 +69,16 @@ public class TaskService extends BaseService<Task> {
     return taskRepository.findByUserAndTypeOrderByPositionAsc(user, type);
   }
 
-  public Map<Type, List<Task>> rearrangeTasks(List<Task> tasks) {
+  public List<Map<Type, List<Task>>> rearrangeTasks(List<Task> tasks) {
     Map<Type, List<Task>> tasksByType = new EnumMap<>(Type.class);
+    Map<Type, List<Task>> onlyDones = new EnumMap<>(Type.class);
+    List<Map<Type, List<Task>>> returned = new ArrayList<>();
     for (Type type : Type.values()) {
-      tasksByType.put(type, new ArrayList<>());
+      if(type.name()=="Done"){
+        onlyDones.put(type,new ArrayList<>());
+      } else{
+      tasksByType.put(type, new ArrayList<>());}
+      /* tasksByType.put(type, new ArrayList<>()); */
     }
     for (Task task : tasks) {
       if(task.getDeadline()!=null){
@@ -80,11 +86,17 @@ public class TaskService extends BaseService<Task> {
       }
       for (Type type : Type.values()) {
         if (task.getType() == type) {
-          tasksByType.get(type).add(task);
+          if(type.name()=="Done"){
+            onlyDones.get(type).add(task);
+          } else{
+            tasksByType.get(type).add(task);
+          }
         }
       }
     }
-    return tasksByType;
+    returned.add(tasksByType);
+    returned.add(onlyDones);
+    return returned;
   }
 
   public Task updateTaskfromDTO(Task task, TaskUpdateDTO updateDTO) {

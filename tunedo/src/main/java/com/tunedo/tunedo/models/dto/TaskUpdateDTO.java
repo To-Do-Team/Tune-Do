@@ -27,6 +27,7 @@ public class TaskUpdateDTO {
     private Double position;
 
     private Type type;
+    private String typeDescription;
 
     public TaskUpdateDTO(Long id,String title,Double position, Status status) {
         this.position = position;
@@ -35,10 +36,12 @@ public class TaskUpdateDTO {
         this.status = status;
         this.statusDescription=status.getDescription();
     }
-    public TaskUpdateDTO(Long id,Status status) {
+    public TaskUpdateDTO(Long id,Status status, Type type) {
         this.status = status;
         this.id=id;
         this.statusDescription=status.getDescription();
+        this.type=type;
+        this.typeDescription = type.getDescription();
     }
     
 }

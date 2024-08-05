@@ -46,12 +46,14 @@ public class HomeController {
     ) {
         User user =userService.findByEmail(principal.getName());
         List<Task> tasks = taskService.findByUserOrdered(user);
-        Map<Type, List<Task>> tasksByType =taskService.rearrangeTasks(tasks);
+        List<Map<Type, List<Task>>> separated =taskService.rearrangeTasks(tasks);
+        Map<Type, List<Task>> tasksByType =separated.get(0);
         Map<String, List<TaskUpdateDTO>> simplifiedTasksByType = new HashMap<>();
         model.addAttribute("user", user);
         model.addAttribute("types", Type.values());
         model.addAttribute("statuses", Status.values());
         model.addAttribute("tasksByType", tasksByType);
+        model.addAttribute("donesOnly", separated.get(1));
         serializeTasksToJson(model,simplifiedTasksByType, tasksByType);
         return "home.jsp";
     }
