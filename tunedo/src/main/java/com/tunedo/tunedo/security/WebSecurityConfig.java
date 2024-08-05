@@ -25,7 +25,7 @@ public class WebSecurityConfig {
             (auth) -> auth
                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR)
                 .permitAll()
-                .requestMatchers("/css/**","/js/**")
+                .requestMatchers("/css/**","/js/**","/img/**")
                 .permitAll()
                 .requestMatchers("/email/**")
                 .permitAll()

@@ -34,3 +34,39 @@ document.addEventListener("keyup", e => {
         })
     }
 })
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-dropdown-toggle]').forEach(function (dropdownButton) {
+        dropdownButton.addEventListener('click', function (event) {
+            // Evita que el dropdown se cierre inmediatamente
+            event.stopPropagation();
+
+            const taskElement = this.closest('.task');
+            const dropdownId = this.getAttribute('data-dropdown-toggle');
+            const dropdownMenu = document.getElementById(dropdownId);
+
+            dropdownMenu.querySelectorAll('a').forEach(function (dropdownItem) {
+                dropdownItem.addEventListener('click', function (event) {
+                    if (this.textContent.trim() === 'Done') {
+                        taskElement.classList.add('task-opacity');
+                    }
+                });
+            });
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const audioPlayer = document.getElementById('audio-player');
+    const playButton = document.getElementById('play-button');
+
+    playButton.addEventListener('click', function() {
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+            playButton.textContent = 'Pause';
+        } else {
+            audioPlayer.pause();
+            playButton.textContent = 'Play';
+        }
+    });
+});
