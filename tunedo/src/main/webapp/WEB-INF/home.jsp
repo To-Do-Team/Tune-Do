@@ -21,13 +21,15 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/player.css">
 
+
 </head>
 <body class="content">
     <header>
         <nav class="bg-white border-gray-200 dark:bg-gray-900">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/TuneTalk_Logo_%28Transparent%29.png" class="h-12" alt="Tune-Do Logo" />
+                <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/TuneTalk_Logo_%28Transparent%29.png" class="h-12" alt="Tune-Do Logo" /> -->
+                <img src="/img/logo1.png" class="h-12" alt="Tune-Do Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tune-Do</span>
             </a>
             <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
@@ -100,16 +102,7 @@
                                         <div class="overflow-y-auto h-48 swim-lane custom-scrollbar" data-type="${entry.getKey().name()}">
                                             <!-- Repeat the above block for each task -->
                                             <c:forEach items="${entry.getValue()}" var="task">
-                                                <div id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="task flex items-start gap-4 p-2 border-b border-gray-300 dark:border-gray-700" draggable="true">
-                                                    
-                                                    <!-- <span class="shrink-0 rounded-lg bg-gray-100 dark:bg-gray-900 p-2">
-                                                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                                                            <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
-                                                        </svg>
-                                                    </span> -->
-                                                    
+                                                <div id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="task flex items-start gap-4 p-2 border-b border-gray-300 dark:border-gray-700" draggable="true">                                                    
                                                     <div class="flex-1">
                                                         <h3 class="text-lg font-bold text-gray-900 dark:text-white">
                                                             <c:out value="${task.getTitle()}" />
@@ -236,7 +229,8 @@
                 </div>
                 <!-- Right part -->
                 <div class="px-4 py-8 flex flex-col items-center justify-center ">
-                    
+
+                    <!-- Searcher -->
                     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg w-80 shadow-lg items-center">
                         <div class="flex items-center mb-4">
                             <svg class="w-5 h-5 text-gray-500 dark:text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -273,43 +267,34 @@
                             Añadir tarea
                         </a>  
                     </div>
+                    
+                    <!-- Songs -->
+                    
 
-                    <div class="mt-6 bg-white dark:bg-gray-800 p-6 rounded-lg w-80 shadow-lg items-center">
-                        <h2 class="mb-3 text-lg font-semibold text-gray-900 dark:text-white">Tips:</h2>
-                        <ul class="max-w-md space-y-2 text-gray-500 list-inside dark:text-gray-400">
-                            <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
-                                <svg class="w-4 h-4 mr-2.5 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M17.707 5.207a1 1 0 0 0-1.414-1.414L7.5 12.586 3.707 8.793a1 1 0 0 0-1.414 1.414l4.5 4.5a1 1 0 0 0 1.414 0l9.5-9.5Z"/>
-                                </svg>
-                                Minimum of one uppercase character
-                            </li>
-                            <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
-                                <svg class="w-4 h-4 mr-2.5 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M17.707 5.207a1 1 0 0 0-1.414-1.414L7.5 12.586 3.707 8.793a1 1 0 0 0-1.414 1.414l4.5 4.5a1 1 0 0 0 1.414 0l9.5-9.5Z"/>
-                                </svg>
-                                At least one numeric character
-                            </li>
-                            <li class="flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
-                                <svg class="w-4 h-4 mr-2.5 text-green-500 dark:text-green-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M17.707 5.207a1 1 0 0 0-1.414-1.414L7.5 12.586 3.707 8.793a1 1 0 0 0-1.414 1.414l4.5 4.5a1 1 0 0 0 1.414 0l9.5-9.5Z"/>
-                                </svg>
-                                Exclusion of your name or common words
-                            </li>
-                        </ul>
-                    </div>     
+                    <div class="mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg w-80 shadow-lg ">
+                        <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Music Player</h2>
+
+                        <div id="music-player" class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md text-center">
+
+                            <div class="flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
+                                <div class="w-14 h-14 rounded-md mx-auto">
+                                    <img id="track-image" src="" alt="Track Image" >
+                                </div>
+                                <div>
+                                    <h2 id="track-name" class=" text-gray-900 dark:text-white mb-2"></h2>                 
+                                    <audio id="audio-player" controls class="w-32 h-6 bg-gray-100 dark:bg-gray-700 rounded-lg "></audio>
+                                </div>
+                            </div>    
+                            <div id="playlist" class="mt-5 max-h-24 overflow-y-auto cursor-pointer bg-gray-100 dark:bg-gray-700 p-2 rounded-lg">
+                                <!-- Playlist items will be added here dynamically -->
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
             </section>
         </div>
     </main>  
     <footer class="bg-white dark:bg-gray-800 p-4">
-        <div id="music-player">
-            <img id="track-image" src="" alt="Track Image">
-            <h2 id="track-name"></h2>
-            <audio id="audio-player" controls></audio>
-            <div id="playlist">
-                <!-- Playlist items will be added here dynamically -->
-            </div>
-        </div>
         <div class="max-w-screen-xl mx-auto text-center">
             <p class="text-sm text-gray-500 dark:text-gray-400">© 2024 Tune-Do. All rights reserved.</p>
         </div>

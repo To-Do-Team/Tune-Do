@@ -1,35 +1,43 @@
-#music-player {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-#track-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-}
-
-#playlist {
-    margin-top: 20px;
-    max-height: 200px;
-    overflow-y: auto;
-}
-
 .playlist-item {
-    padding: 10px;
+    padding: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    border-radius: 5px;
+    margin-bottom: 3px;
+    /* color: rgba(209, 213, 219); */
+    color: rgba(156, 163, 175);
 }
 
 .playlist-item:hover {
-    background-color: #f0f0f0;
+    
+    /* background-color: rgba(31, 41, 55); */
+    background-color: rgba(220, 38, 38);
+
 }
 
 .active-track {
-    background-color: #e0e0e0;
+    /* background-color: rgba(31, 41, 55); */
+    background-color: rgba(220, 38, 38);
     font-weight: bold;
+    color: rgba(209, 213, 219);
+}
+
+ /* Ocultar la barra de reproducción y los tres puntos de opciones */
+#audio-player::-webkit-media-controls-panel {
+    display: active !important;
+}
+
+ #audio-player::-webkit-media-controls-play-button {
+    display: block !important;
+}
+
+#audio-player::-webkit-media-controls-enclosure {
+    display: active !important;
+}
+
+#audio-player::-webkit-media-controls-current-time-display,
+#audio-player::-webkit-media-controls-time-remaining-display,
+#audio-player::-webkit-media-controls-timeline,
+#audio-player::-webkit-media-controls-fullscreen-button {
+    display: none !important;
 }
