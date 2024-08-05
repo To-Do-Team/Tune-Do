@@ -27,8 +27,6 @@ import com.tunedo.tunedo.services.UserService;
 
 import jakarta.validation.Valid;
 
-
-
 @Controller
 @RequestMapping("/tasks")
 public class TaskController {
@@ -108,7 +106,6 @@ public class TaskController {
             return "editTask.jsp";
     }
     
-
     @PostMapping("/{id}/editing")
     public String saveEdit(
         @PathVariable("id") Long id,
@@ -131,7 +128,10 @@ public class TaskController {
         taskService.save(oldTask);
         return "redirect:/home";
     }
-    
-    
-    
+
+    @GetMapping("/{id}/delete")
+	public String destroy(@PathVariable("id")Long id) {
+		taskService.deleteById(id);
+		return "redirect:/home";
+	} 
 }
