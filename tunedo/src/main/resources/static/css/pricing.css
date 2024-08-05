@@ -1,0 +1,20 @@
+.pricing-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pricing-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.plan-badge {
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+}
+
+.background-shape {
+    position: absolute;
+    border-radius: 9999px;
+    opacity: 0.2;
+}
