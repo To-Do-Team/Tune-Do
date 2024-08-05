@@ -11,6 +11,7 @@
     <script src="/js/main.js"></script>
     <script src="/js/drag.js" defer></script>
     <script src="/js/musicPlayer.js" defer></script>
+    <script src="/js/delete.js" defer></script>
     <script>
         var tasksData = JSON.parse('<c:out value="${tasksJson}" escapeXml="false"/>');
     </script>
@@ -38,19 +39,19 @@
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                     <li>
-                        <a href="#" class="block py-2 px-3 text-red-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-600 md:p-0 dark:text-white md:dark:hover:text-red-600 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Home</a>
+                        <a href="/home" class="block py-2 px-3 text-red-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-600 md:p-0 dark:text-white md:dark:hover:text-red-600 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Home</a>
                     </li>
                     <li>
-                        <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+                        <a href="/about" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
                     </li>
                     <li>
-                        <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
+                        <a href="/pricing" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
                     </li>
                     <li>
                         <a href="/logout" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Log Out</a>
                     </li>
                     <li>
-                        <label class=" py-0   inline-flex items-center cursor-pointer">
+                        <label class="py-0   inline-flex items-center cursor-pointer">
                             <input id="dark-mode-toggle" type="checkbox" value="" class="sr-only peer">
                             <span class="px-3  font-medium text-gray-900 dark:text-gray-600">Dark Mode</span>
 
@@ -119,14 +120,22 @@
                                                         <div class="mt-4 mb-4">
                                                             <span class="text-sm text-gray-500 dark:text-gray-400"><c:out value="${task.getDeadlineFormatted()}" /></span>
 
-                                                            <button id="dropdownHoverButton-${task.id}" data-dropdown-toggle="dropdownHover-${task.id}" data-dropdown-trigger="hover" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-1 py-1 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" type="button">Status <svg class="w-2.5 h-2.5 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                                            <button id="dropdownHoverButton-${task.id}" data-dropdown-toggle="dropdownHover-${task.id}" data-dropdown-trigger="hover"
+                                                            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-1 py-1 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" 
+                                                            type="button"><c:out value="${task.getStatus().description}"/> 
+                                                            <svg class="w-2.5 h-2.5 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                                                                </svg>
+                                                            </svg>
                                                             </button>    
                                                             <!-- Dropdown menu -->
                                                             <div id="dropdownHover-${task.id}" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                                                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton-${task.id}">
+                                                                <c:forEach items="${statuses}" var="status">
                                                                     <li>
+                                                                        <a onclick="changeStatus(${task.getId()},'${status}')" class="cursor-pointer block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"><c:out value="${status.description}" /></a>
+                                                                    </li>
+                                                                </c:forEach>
+                                                                    <%-- <li>
                                                                         <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">To do</a>
                                                                     </li>
                                                                     <li>
@@ -134,7 +143,7 @@
                                                                     </li>
                                                                     <li>
                                                                         <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Done</a>
-                                                                    </li>
+                                                                    </li> --%>
                                                                 </ul>
                                                             </div> 
                                                         </div>
@@ -144,9 +153,9 @@
                                                         <a href="tasks/<c:out value="${task.getId()}"/>/editing">
                                                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                                                              </svg>                                                              
+                                                            </svg>                                                              
                                                         </a>
-                                                        <a class="mt-2" href="tasks/<c:out value="${task.getId()}"/>/delete">
+                                                        <a class="mt-2 cursor-pointer" onclick="deleteTask(${task.getId()})" >
                                                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
                                                             </svg>
@@ -156,7 +165,7 @@
                                                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                                 <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                                                 <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                                                              </svg>                                                              
+                                                            </svg>                                                              
                                                         </button>                                                              
                                                         <!-- Main modal -->
                                                         <div id="modal-${task.id}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -190,7 +199,7 @@
                                                                             Tipo de Tarea: <c:out value="${task.type.description}"/> 
                                                     
                                                                         </p>
-                                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                        <p id="status-${task.id}" class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                                                                             Estado de la tarea: <c:out value="${task.status.description}"/>   
                                                                         </p>
                                                                         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
