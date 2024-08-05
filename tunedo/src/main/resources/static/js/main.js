@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener("keyup", e => {
-
     if (e.key === "Escape")e.target.value = "";
 
     if (e.target.matches("#search")) {
