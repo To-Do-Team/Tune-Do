@@ -10,6 +10,7 @@
     
     <script src="/js/main.js"></script>
     <script src="/js/drag.js" defer></script>
+    <script src="/js/musicPlayer.js" defer></script>
     <script>
         var tasksData = JSON.parse('<c:out value="${tasksJson}" escapeXml="false"/>');
     </script>
@@ -17,6 +18,7 @@
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css"  rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/player.css">
 
 </head>
 <body class="content">
@@ -194,6 +196,14 @@
         </div>
     </main>  
     <footer class="bg-white dark:bg-gray-800 p-4">
+        <div id="music-player">
+            <img id="track-image" src="" alt="Track Image">
+            <h2 id="track-name"></h2>
+            <audio id="audio-player" controls></audio>
+            <div id="playlist">
+                <!-- Playlist items will be added here dynamically -->
+            </div>
+        </div>
         <div class="max-w-screen-xl mx-auto text-center">
             <p class="text-sm text-gray-500 dark:text-gray-400">© 2024 Tune-Do. All rights reserved.</p>
         </div>
