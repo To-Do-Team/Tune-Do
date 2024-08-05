@@ -20,15 +20,17 @@ public class RoleService {
         this.repository = repository;
 
         try {
-            Role role = new Role();
-            role.setName("ROLE_USER");
-            repository.save(role);
-
-            role = new Role();
-            role.setName("ROLE_PREMIUM");
-            repository.save(role);
+            if(repository.count()==0){
+                Role role = new Role();
+                role.setName("ROLE_USER");
+                repository.save(role);
+    
+                role = new Role();
+                role.setName("ROLE_PREMIUM");
+                repository.save(role);
+            }
         } catch (Exception e) {
-            logger.error("Error creating initial roles", e);
+            logger.error("initial roles already created", e);
         }
     }
 

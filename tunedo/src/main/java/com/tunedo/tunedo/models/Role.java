@@ -2,6 +2,7 @@ package com.tunedo.tunedo.models;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
@@ -21,6 +22,7 @@ public class Role extends BaseModel {
         
     @NotNull
     @NotEmpty
+    @Column(unique = true)
     @Size(min = 3)
     private String name;
 
