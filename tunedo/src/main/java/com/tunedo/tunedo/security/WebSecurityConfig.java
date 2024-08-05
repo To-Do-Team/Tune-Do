@@ -47,7 +47,7 @@ public class WebSecurityConfig {
                 .permitAll()
                 .requestMatchers(
                     HttpMethod.GET,
-                    "/home")
+                    "/home/*","/home/**")
                 .authenticated()
                 .requestMatchers(
                     HttpMethod.GET,

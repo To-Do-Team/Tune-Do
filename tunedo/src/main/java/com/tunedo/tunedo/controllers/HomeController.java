@@ -24,6 +24,7 @@ import com.tunedo.tunedo.models.enums.Type;
 import com.tunedo.tunedo.services.TaskService;
 import com.tunedo.tunedo.services.UserService;
 
+
 @Controller
 @RequestMapping("/home")
 public class HomeController {
@@ -75,4 +76,10 @@ public class HomeController {
             logger.error("Error serializing simplifiedTasksByType to JSON", e);
         }
     }
+
+    @GetMapping("/pricing")
+    public String getMethodName() {
+        return "pricing.jsp";
+    }
+    
 }
