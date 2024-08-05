@@ -20,7 +20,7 @@ draggables.forEach((task) =>{
     });
     task.addEventListener("dragend",()=>{
         task.classList.remove("is-dragging");
-        if(bottomTask===previousBottomTask && newZone===previousZone){
+        if(bottomTask===previousBottomTask && newZone===previousZone && newZone!==null){
             return;
         }
         calculatePosition(task,topTask,bottomTask);
@@ -105,6 +105,32 @@ const changePosition= (task,position)=>{
     .then(data => 
         console.log(data)
         //tasks[data.type][data.id].position=data.position
+    )
+    .catch((error) => console.error('Error:', error));
+};
+
+const changeStatus= (taskID,status)=>{
+    const task=document.getElementById("dropdownHoverButton-"+taskID);
+    const modal=document.getElementById("status-"+taskID);
+    const editTask = {
+        id: taskID,
+        status: status
+    };
+    fetch('/tasks/'+taskID+'/edit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editTask)
+    })
+    .then(response => response.json())
+    .then(data => {
+        task.childNodes[0].textContent=data.statusDescription;
+        modal.textContent="Estado de la tarea: "+data.statusDescription;
+        const index = tasks[data.type].find(ele => ele.id===data.id);
+        index.status = data.status;
+        index.statusDescription = data.statusDescription;
+    }
     )
     .catch((error) => console.error('Error:', error));
 };

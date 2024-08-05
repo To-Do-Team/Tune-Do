@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum Status {
     ToDo("Por hacer"),
     Doing("Haciendo"),
-    Done("Hechos");
+    Done("Hecho");
     
     private String description;
 

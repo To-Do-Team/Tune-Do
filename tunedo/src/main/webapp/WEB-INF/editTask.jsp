@@ -44,7 +44,7 @@
 
         <div>
             <form:label path="deadline">Deadline:</form:label>
-            <input type="datetime-local" id="dueDateInput" name="dueDateString" value="${task.getDeadline()}" required />
+            <input type="datetime-local" id="dueDateInput" name="dueDateString" value="${task.getDeadline()}" />
             <form:errors class="alert alert-danger form-text text-muted" path="deadline" />
         </div>
 

@@ -112,7 +112,7 @@ public class TaskController {
         @Valid @ModelAttribute("task") Task task,
         Model model,
         BindingResult result,
-        @RequestParam("dueDateString") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDateLocal
+        @RequestParam(value = "dueDateString", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDateLocal
         ) {
         if(result.hasErrors()){
             model.addAttribute("types", Type.values());
@@ -128,10 +128,4 @@ public class TaskController {
         taskService.save(oldTask);
         return "redirect:/home";
     }
-
-    @GetMapping("/{id}/delete")
-	public String destroy(@PathVariable("id")Long id) {
-		taskService.deleteById(id);
-		return "redirect:/home";
-	} 
 }

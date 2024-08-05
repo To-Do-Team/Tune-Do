@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tunedo.tunedo.models.Task;
 import com.tunedo.tunedo.models.User;
 import com.tunedo.tunedo.models.dto.TaskUpdateDTO;
+import com.tunedo.tunedo.models.enums.Status;
 import com.tunedo.tunedo.models.enums.Type;
 import com.tunedo.tunedo.services.TaskService;
 import com.tunedo.tunedo.services.UserService;
@@ -49,6 +50,7 @@ public class HomeController {
         Map<String, List<TaskUpdateDTO>> simplifiedTasksByType = new HashMap<>();
         model.addAttribute("user", user);
         model.addAttribute("types", Type.values());
+        model.addAttribute("statuses", Status.values());
         model.addAttribute("tasksByType", tasksByType);
         serializeTasksToJson(model,simplifiedTasksByType, tasksByType);
         return "home.jsp";
@@ -57,7 +59,7 @@ public class HomeController {
     private void serializeTasksToJson(Model model,Map<String, List<TaskUpdateDTO>> simplifiedTasksByType,Map<Type, List<Task>> tasksByType){
         for (Map.Entry<Type, List<Task>> entry : tasksByType.entrySet()) {
             List<TaskUpdateDTO> simplifiedTasks = entry.getValue().stream()
-                .map(task -> new TaskUpdateDTO(task.getId(), task.getPosition()))
+                .map(task -> new TaskUpdateDTO(task.getId(),task.getTitle(), task.getPosition(),task.getStatus()))
                 .collect(Collectors.toList());
             simplifiedTasksByType.put(entry.getKey().name(), simplifiedTasks);
         }

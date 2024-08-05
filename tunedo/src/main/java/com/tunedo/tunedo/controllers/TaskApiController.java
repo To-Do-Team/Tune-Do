@@ -1,7 +1,9 @@
 package com.tunedo.tunedo.controllers;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,17 +26,29 @@ public class TaskApiController {
     }
 
     @PostMapping("/{id}/edit")
-    public ResponseEntity<Task> updateTask(
+    public ResponseEntity<TaskUpdateDTO> updateTask(
         @PathVariable("id") Long id,
         @RequestBody TaskUpdateDTO updateDTO
     ) {
         Task existingTask = taskService.findById(id);
         if (existingTask == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Person not found with id: " + id);
+            return ResponseEntity.notFound().build();
         }
         existingTask = taskService.updateTaskfromDTO(existingTask,updateDTO);
-
         Task updatedTask = taskService.save(existingTask);
-        return ResponseEntity.ok(updatedTask);
+        TaskUpdateDTO updatedDTO = new TaskUpdateDTO(id, updatedTask.getStatus());
+        updatedDTO.setType(updatedTask.getType());
+        return ResponseEntity.ok(updatedDTO);
     }
+
+    @GetMapping("/{id}/delete")
+	public ResponseEntity<String> destroy(
+        @PathVariable("id")Long id
+        ) {
+        if (taskService.findById(id)!=null) {
+		    taskService.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+		return ResponseEntity.notFound().build();
+	}
 }
