@@ -145,12 +145,16 @@
                                                             </svg>
                                                         </a> 
                                                         <!-- Modal toggle -->
-                                                        <button data-modal-target="modal-${task.id}" data-modal-toggle="modal-${task.id}" class="mt-2 block text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center text-gray-900 dark:focus:ring-red-800" type="button">
+                                                        <button data-tooltip-target="tooltip-${task.getId()}" data-tooltip-trigger="hover" data-tooltip-placement="right" data-modal-target="modal-${task.id}" data-modal-toggle="modal-${task.id}" class="mt-2 block text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center text-gray-900 dark:focus:ring-red-800" type="button">
                                                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                                 <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                                                 <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                                             </svg>                                                              
-                                                        </button>                                                              
+                                                        </button>
+                                                        <div id="tooltip-${task.getId()}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                                            Ver detalles
+                                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                                        </div>                                                 
                                                         <!-- Main modal -->
                                                         <div id="modal-${task.id}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                                             <div class="relative p-4 w-full max-w-md max-h-full">
@@ -171,34 +175,82 @@
                                                                     <!-- Modal body Info Tarea -->
                                                                     <div class="p-4 md:p-5 space-y-4">
                                                                         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                                            Title: <c:out value="${task.getTitle()}"/>  
+                                                                            Título: <p><c:out value="${task.getTitle()}"/>  </p>
+                                                                        </p>
+                                                                        <%-- <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Description: 
+                                                                            <p>
+                                                                            <c:out value="${task.getDescription()}"/>   
+                                                                            </p>
+                                                                        </p> --%>
+                                                                        <c:if test="${not empty task.getDescription()}">
+                                                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Description:  
+                                                                                <p>
+                                                                                    <c:out value="${task.getDescription()}"/> 
+                                                                                </p>  
+                                                                            </p>
+                                                                        </c:if>
+                                                                        <%-- <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Notas: 
+                                                                            <p>
+                                                                            <c:out value="${task.getNotes()}"/> 
+                                                                            </p>  
+                                                                        </p> --%>
+                                                                        <c:if test="${not empty task.getNotes()}">
+                                                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Notas condicional: 
+                                                                                <p>
+                                                                                    <c:out value="${task.getNotes()}"/> 
+                                                                                </p>  
+                                                                            </p>
+                                                                        </c:if>
+                                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Tipo de Tarea: 
+                                                                            <p id="type-${task.id}" >
+                                                                            <c:out value="${task.type.description}"/> 
+                                                                            </p>
                                                                         </p>
                                                                         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                                            Description: <c:out value="${task.getDescription()}"/>   
+                                                                            Estado de la tarea: 
+                                                                            <p id="status-${task.id}">
+                                                                            <c:out value="${task.status.description}"/>  
+                                                                            </p> 
                                                                         </p>
-                                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                                            Deadline: <c:out value="${task.getDeadline()}"/>   
-                                                                        </p>
-                                                                        <p id="type-${task.id}" class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                                            Tipo de Tarea: <c:out value="${task.type.description}"/> 
-                                                    
-                                                                        </p>
-                                                                        <p id="status-${task.id}" class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                                            Estado de la tarea: <c:out value="${task.status.description}"/>   
-                                                                        </p>
-                                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                        <%-- <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                                                                             Categorias: 
                                                                             <c:forEach items="${task.categories}" var="category">
-                                                                                <c:out value="${category.name}" />,                         
+                                                                                <p><c:out value="${category.name}" /></p>                   
                                                                             </c:forEach>
-                                                                        </p>
-                                                                                                                                                
+                                                                        </p> --%>
+                                                                        <c:if test="${not empty task.getCategories()}">
+                                                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Categorias: 
+                                                                                <c:forEach items="${task.categories}" var="category">
+                                                                                <p><c:out value="${category.name}" /></p>                   
+                                                                                </c:forEach> 
+                                                                            </p>
+                                                                        </c:if> 
+                                                                        <%-- <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Deadline: 
+                                                                            <p>
+                                                                            <c:out value="${task.getDeadline()}"/> 
+                                                                            </p>  
+                                                                        </p> --%>
+                                                                        <c:if test="${not empty task.getDeadline()}">
+                                                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Deadline: 
+                                                                                <p>
+                                                                                    <c:out value="${task.getDeadlineFormatted()}"/> 
+                                                                                </p>  
+                                                                            </p>
+                                                                        </c:if>                                          
                                                                     </div>
                                                                     <!-- Modal footer -->
-                                                                    <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                                    <%-- <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                                                                         <button data-modal-hide="modal-${task.id}" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">I accept</button>
                                                                         <button data-modal-hide="modal-${task.id}" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
-                                                                    </div>
+                                                                    </div> --%>
                                                                 </div>
                                                             </div>
                                                         </div>         
@@ -289,12 +341,16 @@
                                                             </svg>
                                                         </a> 
                                                         <!-- Modal toggle -->
-                                                        <button data-modal-target="modal-${task.id}" data-modal-toggle="modal-${task.id}" class="mt-2 block text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center text-gray-900 dark:focus:ring-red-800" type="button">
+                                                        <button data-tooltip-target="tooltip-${task.getId()}" data-tooltip-trigger="hover" data-tooltip-placement="right" data-modal-target="modal-${task.id}" data-modal-toggle="modal-${task.id}" class="mt-2 block text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center text-gray-900 dark:focus:ring-red-800" type="button">
                                                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                                                 <path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/>
                                                                 <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                                                             </svg>                                                              
-                                                        </button>                                                              
+                                                        </button>
+                                                        <div id="tooltip-${task.getId()}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                                            Ver detalles
+                                                            <div class="tooltip-arrow" data-popper-arrow></div>
+                                                        </div>                                                      
                                                         <!-- Main modal -->
                                                         <div id="modal-${task.id}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                                             <div class="relative p-4 w-full max-w-md max-h-full">
@@ -315,28 +371,76 @@
                                                                     <!-- Modal body Info Tarea -->
                                                                     <div class="p-4 md:p-5 space-y-4">
                                                                         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                                            Title: <c:out value="${task.getTitle()}"/>  
+                                                                            Título: <p><c:out value="${task.getTitle()}"/>  </p>
+                                                                        </p>
+                                                                        <%-- <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Description: 
+                                                                            <p>
+                                                                            <c:out value="${task.getDescription()}"/>   
+                                                                            </p>
+                                                                        </p> --%>
+                                                                        <c:if test="${not empty task.getDescription()}">
+                                                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Description:  
+                                                                                <p>
+                                                                                    <c:out value="${task.getDescription()}"/> 
+                                                                                </p>  
+                                                                            </p>
+                                                                        </c:if>
+                                                                        <%-- <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Notas: 
+                                                                            <p>
+                                                                            <c:out value="${task.getNotes()}"/> 
+                                                                            </p>  
+                                                                        </p> --%>
+                                                                        <c:if test="${not empty task.getNotes()}">
+                                                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Notas condicional: 
+                                                                                <p>
+                                                                                    <c:out value="${task.getNotes()}"/> 
+                                                                                </p>  
+                                                                            </p>
+                                                                        </c:if>
+                                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Tipo de Tarea: 
+                                                                            <p id="type-${task.id}" >
+                                                                            <c:out value="${task.type.description}"/> 
+                                                                            </p>
                                                                         </p>
                                                                         <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                                            Description: <c:out value="${task.getDescription()}"/>   
+                                                                            Estado de la tarea: 
+                                                                            <p id="status-${task.id}">
+                                                                            <c:out value="${task.status.description}"/>  
+                                                                            </p> 
                                                                         </p>
-                                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                                            Deadline: <c:out value="${task.getDeadline()}"/>   
-                                                                        </p>
-                                                                        <p id="type-${task.id}" class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                                            Tipo de Tarea: <c:out value="${task.type.description}"/> 
-                                                    
-                                                                        </p>
-                                                                        <p id="status-${task.id}" class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                                                                            Estado de la tarea: <c:out value="${task.status.description}"/>   
-                                                                        </p>
-                                                                        <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                        <%-- <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                                                                             Categorias: 
                                                                             <c:forEach items="${task.categories}" var="category">
-                                                                                <c:out value="${category.name}" />,                         
+                                                                                <p><c:out value="${category.name}" /></p>                   
                                                                             </c:forEach>
-                                                                        </p>
-                                                                                                                                                
+                                                                        </p> --%>
+                                                                        <c:if test="${not empty task.getCategories()}">
+                                                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Categorias: 
+                                                                                <c:forEach items="${task.categories}" var="category">
+                                                                                <p><c:out value="${category.name}" /></p>                   
+                                                                                </c:forEach> 
+                                                                            </p>
+                                                                        </c:if> 
+                                                                        <%-- <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Deadline: 
+                                                                            <p>
+                                                                            <c:out value="${task.getDeadline()}"/> 
+                                                                            </p>  
+                                                                        </p> --%>
+                                                                        <c:if test="${not empty task.getDeadline()}">
+                                                                            <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                                                            Deadline: 
+                                                                                <p>
+                                                                                    <c:out value="${task.getDeadlineFormatted()}"/> 
+                                                                                </p>  
+                                                                            </p>
+                                                                        </c:if>                                          
                                                                     </div>
                                                                     <!-- Modal footer -->
                                                                     <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">

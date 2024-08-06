@@ -112,7 +112,7 @@ const changePosition= (task,position)=>{
             }
             previousZone=null;
         }
-        modal.textContent="Tipo de tarea: "+data.typeDescription;
+        modal.textContent=data.typeDescription;
     }
         //tasks[data.type][data.id].position=data.position
     )
@@ -137,7 +137,7 @@ const changeStatus= (taskID,status)=>{
     .then(response => response.json())
     .then(data => {
         task.childNodes[0].textContent=data.statusDescription;
-        modal.textContent="Estado de la tarea: "+data.statusDescription;
+        modal.textContent=data.statusDescription;
         /* const index = tasks[data.type].find(ele => ele.id===data.id);
         index.status = data.status;
         index.statusDescription = data.statusDescription; */
