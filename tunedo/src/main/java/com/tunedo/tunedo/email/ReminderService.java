@@ -34,7 +34,7 @@ public class ReminderService {
     private void sendReminder(Task task){
         String to = task.getUser().getEmail();
         String subject= "Recordatorio de tarea: "+ task.getTitle();
-        String body = "Tu tarea \n\t'"+task.getTitle()+"': \n\t\t'"+task.getDescription()+"'' \nVence pronto.\n\t Tune-Do";
+        String body = "Tu tarea \n\t'"+task.getTitle()+"': \n\t'"+task.getDescription()+"'' \nVence pronto.\n\n Tune-Do";
         taskService.reminded(task);
         emailManager.sendEmail(to, subject, body);
     }
