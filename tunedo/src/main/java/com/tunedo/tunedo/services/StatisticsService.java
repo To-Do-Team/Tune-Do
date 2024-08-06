@@ -22,12 +22,14 @@ import com.tunedo.tunedo.repositories.StatisticsRepository;
 public class StatisticsService extends BaseService<Statistic>{
     private final StatisticsRepository repository;
     private final TaskService taskService;
+    private final StatisticTaskService statisticTaskService;
     private final DateTimeFormatter formatter;
 
-    public StatisticsService(StatisticsRepository repository,TaskService taskService) {
+    public StatisticsService(StatisticsRepository repository,TaskService taskService,StatisticTaskService statisticTaskService) {
         super(repository);
         this.repository = repository;
         this.taskService=taskService;
+        this.statisticTaskService=statisticTaskService;
         this.formatter=DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy 'a las' h:mm a")
         .withLocale(Locale.forLanguageTag("es-Es"))
         .withZone(ZoneId.systemDefault());
@@ -37,10 +39,10 @@ public class StatisticsService extends BaseService<Statistic>{
         return repository.findByUser(user);
     }
 
-    public Map<String, List<Task>> getTasksForStatistics(User user, Instant statisticCreationTime) {
-        List<Task> allTasks = taskService.findByUserAndCreatedAtBefore(user, statisticCreationTime);
+    public Map<String, List<StatisticTask>> getTasksForStatistics(Statistic statistic, Instant statisticCreationTime) {
+        List<StatisticTask> allTasks = statisticTaskService.findByStatistic(statistic);
         
-        Map<String, List<Task>> tasksByStatus = new HashMap<>();
+        Map<String, List<StatisticTask>> tasksByStatus = new HashMap<>();
         tasksByStatus.put("DONE", allTasks.stream().filter(t -> t.getStatus() == Status.Done).collect(Collectors.toList()));
         tasksByStatus.put("DOING", allTasks.stream().filter(t -> t.getStatus() == Status.Doing).collect(Collectors.toList()));
         tasksByStatus.put("TODO", allTasks.stream().filter(t -> t.getStatus() == Status.ToDo).collect(Collectors.toList()));

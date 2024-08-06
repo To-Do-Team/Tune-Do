@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tunedo.tunedo.models.Statistic;
+import com.tunedo.tunedo.models.StatisticTask;
 import com.tunedo.tunedo.models.Task;
 import com.tunedo.tunedo.models.User;
 import com.tunedo.tunedo.models.dto.TaskUpdateDTO;
@@ -130,7 +131,7 @@ public class HomeController {
         //Statistic latestStatistic = statisticsService.getLatestStatisticForUser(user);
         Statistic statistic = statisticsService.findByIdAndUser(id,user);
         if (statistic != null) {
-            Map<String, List<Task>> tasksByStatus = statisticsService.getTasksForStatistics(user, statistic.getCreatedAt());
+            Map<String, List<StatisticTask>> tasksByStatus = statisticsService.getTasksForStatistics(statistic, statistic.getCreatedAt());
             
             model.addAttribute("doneTasks", tasksByStatus.get("DONE"));
             model.addAttribute("doingTasks", tasksByStatus.get("DOING"));
