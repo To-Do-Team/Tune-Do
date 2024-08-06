@@ -54,6 +54,10 @@ public class WebSecurityConfig {
                     "/statistics/*", "/statistics/**")
                 .authenticated()
                 .requestMatchers(
+                    HttpMethod.POST,
+                    "/statistics/*", "/statistics/**")
+                .authenticated()
+                .requestMatchers(
                     HttpMethod.GET,
                     "/tasks/*", "/tasks/**")
                 .authenticated()
@@ -75,8 +79,8 @@ public class WebSecurityConfig {
             .deleteCookies("JSESSIONID"))
         .sessionManagement(session -> session
             .maximumSessions(1)
-            .expiredUrl("/login"))
-        .httpBasic(Customizer.withDefaults());
+            .expiredUrl("/login"));/* 
+        .httpBasic(Customizer.withDefaults()); */
 
     return http.build();
     }

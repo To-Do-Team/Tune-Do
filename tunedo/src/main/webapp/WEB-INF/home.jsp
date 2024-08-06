@@ -12,9 +12,12 @@
     <script src="/js/drag.js" defer></script>
     <script src="/js/musicPlayer.js" defer></script>
     <script src="/js/delete.js" defer></script>
+    <script src="/js/statistic.js" defer></script>
+    <script src="/js/swal.js" defer></script>
     <script>
         var tasksData = JSON.parse('<c:out value="${tasksJson}" escapeXml="false"/>');
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css"  rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
@@ -27,7 +30,7 @@
     <header>
         <nav class="bg-white border-gray-200 dark:bg-gray-900">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <a href="/home" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/TuneTalk_Logo_%28Transparent%29.png" class="h-12" alt="Tune-Do Logo" /> -->
                 <img src="/img/logo1.png" class="h-12" alt="Tune-Do Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tune-Do</span>
@@ -44,7 +47,7 @@
                         <a href="/home" class="block py-2 px-3 text-red-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-600 md:p-0 dark:text-white md:dark:hover:text-red-600 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Home</a>
                     </li>
                     <li>
-                        <a href="/about" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
+                        <a href="/home/statistics" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Mi diario</a>
                     </li>
                     <li>
                         <a href="/home/pricing" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-500 md:p-0 dark:text-white md:dark:hover:text-red-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Pricing</a>
@@ -457,14 +460,33 @@
                         </div>
                         </c:forEach>
                         <!-- Boton añadir tarea-->
-                        <a href="tasks/new" class="mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
+                        <a onclick="generateStatistic()" class="cursor-pointer mt-4 flex items-center justify-center w-full bg-gray-200 dark:bg-gray-700 py-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white">
                             <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                             </svg>
-                            Añadir tarea
-                        </a>  
+                            Terminar el día
+                        </a>
                     </div>
                     
+                        <template id="my-template">
+                        <swal-title>
+                            ¿Quieres terminar tu dia y generar un reporte?
+                        </swal-title>
+                        <swal-icon type="info" color="blue"></swal-icon>
+                        <swal-button type="confirm">
+                            Sí ,por favor
+                        </swal-button>
+                        <swal-button type="cancel">
+                            No, aun tengo trabajo por hacer
+                        </swal-button>
+                        <swal-param name="allowEscapeKey" value="false" />
+                        <swal-param
+                            name="customClass"
+                            value='{ "popup": "my-popup" }' />
+                        <swal-function-param
+                            name="didOpen"
+                            value="popup => console.log(popup)" />
+                        </template>
                     <!-- Songs -->
                     
 

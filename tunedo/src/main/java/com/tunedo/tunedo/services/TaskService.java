@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.eclipse.tags.shaded.org.apache.regexp.recompile;
 import org.springframework.stereotype.Service;
 
 import com.tunedo.tunedo.models.Task;
@@ -144,5 +145,14 @@ public class TaskService extends BaseService<Task> {
       task.setDeadline(updateDTO.getDeadline());
     }
     return task;
+  }
+
+  public List<Task> getTasksDone(User user){
+    List<Task> tasks = taskRepository.findByUserAndStatus(user, Status.Done);
+    return tasks;
+  }
+
+  public List<Task> findByUserAndCreatedAtBefore(User user, Instant statisticCreationTime) {
+    return taskRepository.findByUserAndCreatedAtBefore( user,  statisticCreationTime);
   }
 }
