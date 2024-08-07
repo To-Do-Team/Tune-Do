@@ -99,6 +99,23 @@ public class TaskService extends BaseService<Task> {
     return returned;
   }
 
+  public List<Map<Status, List<Task>>> rearrangeTasksStatus(List<Task> tasks) {
+    Map<Status, List<Task>> tasksByStatus = new EnumMap<>(Status.class);
+    for (Status status : Status.values()) {
+        tasksByStatus.put(status, new ArrayList<>());
+    }
+    for (Task task : tasks) {
+        if (task.getDeadline() != null) {
+            task.setDeadlineFormatted(formatter.format(task.getDeadline()));
+        }
+        Status status = task.getStatus();
+        tasksByStatus.get(status).add(task);
+    }
+    List<Map<Status, List<Task>>> returned = new ArrayList<>();
+    returned.add(tasksByStatus);
+    return returned;
+}
+
   public Task updateTaskfromDTO(Task task, TaskUpdateDTO updateDTO) {
     if (updateDTO.getType() != null) {
       task.setType(updateDTO.getType());

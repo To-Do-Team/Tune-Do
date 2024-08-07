@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.tunedo.tunedo.models.enums.DefaultCategories;
 import com.tunedo.tunedo.models.enums.Status;
 import com.tunedo.tunedo.models.enums.Type;
 
@@ -50,6 +51,8 @@ public class Task extends BaseModel{
     private Integer dueReminder;
 
     private boolean reminded;
+
+    private DefaultCategories defaultCategories;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JsonIgnore

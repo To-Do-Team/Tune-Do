@@ -48,6 +48,14 @@ public class WebSecurityConfig {
                 .requestMatchers(
                     HttpMethod.GET,
                     "/home")
+                .permitAll()
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/home/status-mode")
+                .permitAll()
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/home/categories-mode")
                 .authenticated()
                 .requestMatchers(
                     HttpMethod.GET,
