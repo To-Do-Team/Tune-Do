@@ -1,3 +1,4 @@
+// toggle dark
 document.addEventListener('DOMContentLoaded', function() {
     const toggle = document.getElementById('dark-mode-toggle');
     const body = document.body;
@@ -23,6 +24,33 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+//toggle premium
+document.addEventListener('DOMContentLoaded', function() {
+    const premiumToggle = document.getElementById('premium-mode-toggle');
+    const premiumLinks = document.getElementById('premium-links');
+
+    // Cargar el estado inicial del premium mode
+    if (localStorage.getItem('premium-mode') === 'enabled') {
+        premiumLinks.classList.remove('hidden');
+        premiumToggle.checked = true;
+    } else {
+        premiumLinks.classList.add('hidden');
+        premiumToggle.checked = false;
+    }
+
+    // Manejar el cambio de estado del toggle
+    premiumToggle.addEventListener('change', function() {
+        if (premiumToggle.checked) {
+            premiumLinks.classList.remove('hidden');
+            localStorage.setItem('premium-mode', 'enabled');
+        } else {
+            premiumLinks.classList.add('hidden');
+            localStorage.setItem('premium-mode', 'disabled');
+        }
+    });
+});
+
+// search tasks
 document.addEventListener("keyup", e => {
     if (e.key === "Escape")e.target.value = "";
 
@@ -35,6 +63,7 @@ document.addEventListener("keyup", e => {
     }
 })
 
+//dropdown list
 document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-dropdown-toggle]').forEach(function (dropdownButton) {
         dropdownButton.addEventListener('click', function (event) {
@@ -55,18 +84,3 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-
-/* document.addEventListener('DOMContentLoaded', function() {
-    const audioPlayer = document.getElementById('audio-player');
-    const playButton = document.getElementById('play-button');
-
-    playButton.addEventListener('click', function() {
-        if (audioPlayer.paused) {
-            audioPlayer.play();
-            playButton.textContent = 'Pause';
-        } else {
-            audioPlayer.pause();
-            playButton.textContent = 'Play';
-        }
-    });
-}); */

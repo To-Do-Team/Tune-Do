@@ -84,6 +84,63 @@ public class HomeController {
         }
     }
 
+   
+
+    @GetMapping("/status-mode")
+    public String statusMode(
+        Principal principal,
+        Model model
+    ) {
+        User user =userService.findByEmail(principal.getName());
+        List<Task> tasks = taskService.findByUserOrdered(user);
+        Map<Status, List<Task>> tasksByStatus = taskService.rearrangeTasksStatus(tasks).get(0);
+        Map<String, List<TaskUpdateDTO>> simplifiedTasksByStatus = new HashMap<>();
+        model.addAttribute("user", user);
+        model.addAttribute("types", Type.values());
+        model.addAttribute("status", Status.values());
+        model.addAttribute("tasksByStatus", tasksByStatus);
+        serializeTasksToJsonS(model,simplifiedTasksByStatus, tasksByStatus);
+        return "p-home-status.jsp";
+    }
+
+    private void serializeTasksToJsonS(Model model,Map<String, List<TaskUpdateDTO>> simplifiedTasksByStatus,Map<Status, List<Task>> tasksByStatus){
+        for (Map.Entry<Status, List<Task>> entry : tasksByStatus.entrySet()) {
+            List<TaskUpdateDTO> simplifiedTasks = entry.getValue().stream()
+                .map(task -> new TaskUpdateDTO(task.getId(),task.getTitle(), task.getPosition(),task.getStatus()))
+                .collect(Collectors.toList());
+            simplifiedTasksByStatus.put(entry.getKey().name(), simplifiedTasks);
+        }
+        try {
+            String tasksJson = objectMapper.writeValueAsString(simplifiedTasksByStatus);
+            model.addAttribute("tasksJson", tasksJson);
+        } catch (JsonProcessingException e) {
+            logger.error("Error serializing simplifiedTasksByStatus to JSON", e);
+        }
+    }
+
+    @GetMapping("/categories-mode")
+    public String categoriesMode(
+        Principal principal,
+        Model model
+    ) {
+        User user =userService.findByEmail(principal.getName());
+        List<Task> tasks = taskService.findByUserOrdered(user);
+        List<Map<Type, List<Task>>> separated =taskService.rearrangeTasks(tasks);
+        Map<Type, List<Task>> tasksByType =separated.get(0);
+        Map<Type, List<Task>> merged = new HashMap<>() ;
+        Map<String, List<TaskUpdateDTO>> simplifiedTasksByType = new HashMap<>();
+        model.addAttribute("user", user);
+        model.addAttribute("types", Type.values());
+        model.addAttribute("statuses", Status.values());
+        model.addAttribute("tasksByType", tasksByType);
+        model.addAttribute("donesOnly", separated.get(1));
+        merged.putAll(tasksByType);
+        merged.putAll(separated.get(1));
+        serializeTasksToJson(model,simplifiedTasksByType, merged);
+        return "p-home-category.jsp";
+
+    }
+
     @GetMapping("/pricing")
     public String pricingView() {
         return "pricing.jsp";

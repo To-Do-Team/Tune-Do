@@ -65,7 +65,7 @@
                     </li>
                     <li>
                         <label class="py-0  inline-flex items-center cursor-pointer">
-                            <input type="checkbox" value="" class="sr-only peer" >
+                            <input id="premium-mode-toggle" type="checkbox" value="" class="sr-only peer" >
                             <span class="px-3 font-medium text-gray-900 dark:text-gray-500">Premium Mode</span>
 
                             <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
@@ -86,6 +86,10 @@
                         <c:out value="${user.getName()}" />
                     </div>
                 </h2>
+
+                <div id="premium-links" class="mt-4 flex inline-flex items ml-10">
+                    <a href="/home/status-mode" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 cursor-pointer">Status mode</a>
+                </div>
             </div>
             <section class="grow max-w-screen-xl items-start justify-between mx-auto px-4 text-white bg-white border-gray-200 dark:bg-gray-900 grid grid-cols-1 md:grid-cols-3">
                 
@@ -491,8 +495,6 @@
                             value="popup => console.log(popup)" />
                         </template>
                     <!-- Songs -->
-                    
-
                     <div class="mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg w-80 shadow-lg ">
                         <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Music Player</h2>
 
