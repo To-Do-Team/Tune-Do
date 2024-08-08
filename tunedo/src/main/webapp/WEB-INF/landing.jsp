@@ -349,6 +349,27 @@
             <p class="text-lg font-bold">"La música es el mejor compañero en cada paso de tu vida."</p>
         </div>
     </footer>
+    <footer class="bg-[#003049] text-white py-8">
+        <div class="container mx-auto flex flex-col items-center">
+
+            <div class="text-center mb-6">
+                <p class="text-2xl font-bold mb-2">¿Qué estás esperando para organizar tu vida?</p>
+                <p class="text-base font-medium mb-4">Domina tu día con herramientas inteligentes y la música que te
+                    impulsa. Regístrate ahora y transforma cada tarea en una experiencia inspiradora y eficiente.</p>
+            </div>
+
+            <div class="text-center space-y-4">
+                <a href="#login"
+                    class="bg-[#C1121F] text-white py-3 px-6 rounded transition duration-300 hover:bg-red-800 inline-block">Iniciar
+                    Sesión</a>
+                <a href="#register"
+                    class="bg-[#C1121F] text-white py-3 px-6 rounded transition duration-300 hover:bg-red-800 inline-block">Registrarse</a>
+            </div>
+        </div>
+        <div class="bg-[#669BBC] text-white py-4 mt-8 text-center">
+            <p class="text-lg font-bold">"La música es el mejor compañero en cada paso de tu vida."</p>
+        </div>
+    </footer>
 
 
 </body>
