@@ -2,6 +2,7 @@ package com.tunedo.tunedo.controllers;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -58,8 +59,9 @@ public class TaskController {
         BindingResult result,
         Principal principal,
         Model model,
-        @RequestParam(value="dueDateString", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDateLocal,
-        @RequestParam("category") Long categoryId
+        @RequestParam(value="dueDateString", required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dueDateLocal,
+        @RequestParam(value="timeLocal", required=false) @DateTimeFormat(pattern = "HH:mm") LocalTime timeLocal,
+        @RequestParam("categoryIds") List<Long> categoryIds
     ) {
         if(result.hasErrors()){
             model.addAttribute("types", Type.values());
@@ -68,11 +70,12 @@ public class TaskController {
             model.addAttribute("reminderOptions", DueReminderOptions.values());
             return "newTask.jsp";
         }
-        if(categoryId!=null){
-            task.setCategories(categoryService.addAnotherCategory(categoryId, task));
+        if(categoryIds != null && !categoryIds.isEmpty()){
+            task.setCategories(categoryService.addAnotherCategory(categoryIds, task));
         }
-        if(dueDateLocal!=null){
-            task.setDeadline(dueDateLocal.atZone(ZoneId.systemDefault()).toInstant());
+        if(dueDateLocal!=null && timeLocal != null){
+            LocalDateTime combinedDateTime = dueDateLocal.with(timeLocal);
+            task.setDeadline(combinedDateTime.atZone(ZoneId.systemDefault()).toInstant());
         }
         User user = userService.findByEmail(principal.getName());
         List<Task> lastTask = taskService.findByUserAndType(user, task.getType());

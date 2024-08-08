@@ -8,12 +8,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistics</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="/css/pricing.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css"  rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body class="bg-gray-50">
+<body class="content bg-gray-50">
     <header>
         <nav class="bg-white border-gray-200 dark:bg-gray-900">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -64,45 +67,30 @@
         </nav>
         
     </header>
-    <section class="py-16 relative overflow-hidden">
+    <main>
+    <section class="min-h-full bg-white border-gray-200 dark:bg-gray-900 py-16 relative overflow-hidden">
         <div class="absolute inset-0 -z-10 flex justify-center items-center">
             <div class="background-shape bg-blue-200 w-72 h-72 transform -translate-x-1/2 -translate-y-1/4"></div>
             <div class="background-shape bg-green-200 w-96 h-96 transform translate-x-1/4 translate-y-1/4"></div>
         </div>
 
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-extrabold text-center mb-12 text-gray-800">Tus Estadísticas</h2>
+            <h2 class="text-4xl font-extrabold text-center mb-12 text-gray-800 dark:text-white">Mi Diario</h2>
             
             <c:forEach items="${statistics}" var="stat">
-                <div class="my-4">
-                    <p><c:out value="${stat.getComentarios()}" /></p>
-                    <a href="/home/statistics/${stat.id}">Ver detalles</a>
+                <div class="flex flex-col my-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
+                    <p class="text-3xl my-5 text-gray-800 dark:text-white"><c:out value="${stat.getComentarios()}" /></p>
+                    <a class="my-5 max-w-max button-add items-center justify-center bg-gray-200 dark:bg-gray-700 py-2 px-2 rounded-lg text-sm font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-white" href="/home/statistics/${stat.id}">Ver detalles</a>
                 </div>
             </c:forEach>
-
-            <%-- <h3 class="text-3 font-extrabold text-gray-800 my-3">Hiciste ${doneTasks.size()} tareas:</h3>
-            <ul class="my-1 mb-12">
-                <c:forEach items="${doneTasks}" var="task">
-                    <li>${task.title} - ${task.description}</li>
-                </c:forEach>
-            </ul>
-
-            <h2 class="text-3 font-extrabold text-gray-800 my-3">Te quedan para mañana ${doingTasks.size()} tareas:</h2>
-            <ul class="my-1 mb-12">
-                <c:forEach items="${doingTasks}" var="task">
-                    <li>${task.title} - ${task.description}</li>
-                </c:forEach>
-            </ul>
-
-            <h2 class="text-3 font-extrabold text-gray-800 my-3">Aún no empiezas ${todoTasks.size()} tareas:</h2>
-            <ul class="my-1mb-12">
-                <c:forEach items="${todoTasks}" var="task">
-                    <li>${task.title} - ${task.description}</li>
-                </c:forEach>
-            </ul> --%>
         </div>
     </section>
-
+    </main>
+    <footer class="bg-white dark:bg-gray-800 p-4">
+        <div class="max-w-screen-xl mx-auto text-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400">© 2024 Tune-Do. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

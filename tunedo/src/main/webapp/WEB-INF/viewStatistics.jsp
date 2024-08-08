@@ -8,11 +8,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistics</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/main.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css"  rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
     <link rel="stylesheet" href="/css/pricing.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body class="bg-gray-50">
+<body class="content bg-gray-50">
     <header>
         <nav class="bg-white border-gray-200 dark:bg-gray-900">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -63,37 +67,52 @@
         </nav>
         
     </header>
-    <section class="py-16 relative overflow-hidden">
+    <main>
+        <section class="min-h-full bg-white border-gray-200 dark:bg-gray-900 py-16 relative overflow-hidden">
         <div class="absolute inset-0 -z-10 flex justify-center items-center">
             <div class="background-shape bg-blue-200 w-72 h-72 transform -translate-x-1/2 -translate-y-1/4"></div>
             <div class="background-shape bg-green-200 w-96 h-96 transform translate-x-1/4 translate-y-1/4"></div>
         </div>
 
         <div class="container mx-auto px-4">
-            <h2 class="text-4xl font-extrabold text-center mb-12 text-gray-800">Tus Estadísticas</h2>
+            <h2 class="text-4xl font-extrabold text-center mb-12 text-gray-800 dark:text-white">${statistic.getComentarios()}</h2>
 
-            <h3 class="text-3 font-extrabold text-gray-800 my-3">Hiciste ${doneTasks.size()} tareas:</h3>
+            <h3 class="max-w-max rounded px-2 py-2 text-3 font-extrabold bg-green-100 text-green-600 dark:text-black my-3">Hiciste ${doneTasks.size()} tareas:</h3>
             <ul class="my-1 mb-12">
                 <c:forEach items="${doneTasks}" var="task">
-                    <li>${task.title} - ${task.description}</li>
+                
+                    
+                    <li class="text-gray-800 dark:text-white">
+                    <span class="w-2 h-2 p-1 mr-3 bg-green-500 rounded-full"></span>
+                    ${task.title} - ${task.description}</li>
                 </c:forEach>
             </ul>
 
-            <h2 class="text-3 font-extrabold text-gray-800 my-3">Te quedan para mañana ${doingTasks.size()} tareas:</h2>
+            <h2 class="max-w-max rounded px-2 py-2 text-3 font-extrabold bg-blue-100 text-blue-600  dark:text-black my-3">Te quedan para mañana ${doingTasks.size()} tareas:</h2>
             <ul class="my-1 mb-12">
                 <c:forEach items="${doingTasks}" var="task">
-                    <li>${task.title} - ${task.description}</li>
+                    <li class=" text-gray-800 dark:text-white">
+                    <span class="w-2 h-2 p-1 mr-3 bg-blue-500 rounded-full"></span>
+                    ${task.title} - ${task.description}</li>
                 </c:forEach>
             </ul>
 
-            <h2 class="text-3 font-extrabold text-gray-800 my-3">Aún no empiezas ${todoTasks.size()} tareas:</h2>
+            <h2 class="max-w-max rounded px-2 py-2 text-3 font-extrabold bg-yellow-100 text-yellow-600 dark:text-black my-3">Aún no empiezas ${todoTasks.size()} tareas:</h2>
             <ul class="my-1mb-12">
                 <c:forEach items="${todoTasks}" var="task">
-                    <li>${task.title} - ${task.description}</li>
+                    <li class="text-gray-800 dark:text-white">
+                    <span class="w-2 h-2 p-1 mr-3 bg-yellow-500 rounded-full"></span>
+                    ${task.title} - ${task.description}</li>
                 </c:forEach>
             </ul>
                     </div>
-                </section>
+        </section>
+    </main>
+    <footer class="bg-white dark:bg-gray-800 p-4">
+        <div class="max-w-screen-xl mx-auto text-center">
+            <p class="text-sm text-gray-500 dark:text-gray-400">© 2024 Tune-Do. All rights reserved.</p>
+        </div>
+    </footer>
 
 </body>
 

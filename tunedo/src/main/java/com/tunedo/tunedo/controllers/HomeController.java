@@ -122,8 +122,8 @@ public class HomeController {
     }
     @GetMapping("/statistics/{id}")
     public String viewStatistics(
-        Model model,
         Principal principal,
+        Model model,
         @PathVariable("id")Long id
         ) {
         User user = userService.findByEmail(principal.getName());
@@ -133,6 +133,7 @@ public class HomeController {
         if (statistic != null) {
             Map<String, List<StatisticTask>> tasksByStatus = statisticsService.getTasksForStatistics(statistic, statistic.getCreatedAt());
             
+            model.addAttribute("statistic",statistic);
             model.addAttribute("doneTasks", tasksByStatus.get("DONE"));
             model.addAttribute("doingTasks", tasksByStatus.get("DOING"));
             model.addAttribute("todoTasks", tasksByStatus.get("TODO"));

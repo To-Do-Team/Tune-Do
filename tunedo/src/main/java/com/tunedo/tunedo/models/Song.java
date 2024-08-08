@@ -1,6 +1,7 @@
 package com.tunedo.tunedo.models;
 
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -47,5 +48,5 @@ public class Song extends BaseModel {
         joinColumns = @JoinColumn(name = "song_id"),
         inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private List<Category> categories; 
+    private Set<Category> categories; 
 }

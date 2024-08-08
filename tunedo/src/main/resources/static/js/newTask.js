@@ -7,8 +7,21 @@ function categories() {
 
 function time() {
     flatpickr("#date-picker", {
-        dateFormat: "d/m/Y",
-        minDate: "today"
+        altFormat: "d-m-Y",
+        altInput: true,
+        dateFormat: "Y-m-d\\TH:i",
+        minDate: "today",
+        locale: {
+            firstDayOfWeek: 1,
+            weekdays: {
+                shorthand: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+                longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            },
+            months: {
+                shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Оct', 'Nov', 'Dic'],
+                longhand: ['Enero', 'Febreo', 'Мarzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            },
+        },
     });
     flatpickr("#time-picker", {
         enableTime: true,
@@ -22,19 +35,6 @@ function categories() {
     const choices = new Choices('#category-select', {
         removeItemButton: true,
         placeholder: true,
-    });
-}
-
-function time() {
-    flatpickr("#date-picker", {
-        dateFormat: "d/m/Y",
-        minDate: "today"
-    });
-    flatpickr("#time-picker", {
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-        time_24hr: true
     });
 }
 
@@ -71,7 +71,7 @@ function validateForm() {
         const [day, month, year] = date.split('/').map(num => parseInt(num, 10));
         const [hour, minute] = time.split(':').map(num => parseInt(num, 10));
         const selectedDate = new Date(year, month - 1, day, hour, minute);
-        
+
         if (selectedDate <= now) {
             dateError.textContent = 'Fecha y hora deben ser futuras';
             dateError.classList.remove('hidden');
@@ -114,7 +114,7 @@ function validateForm() {
 document.addEventListener('DOMContentLoaded', () => {
     categories();
     time();
-    
+
     document.getElementById('task-form').addEventListener('submit', (event) => {
         if (!validateForm()) {
             event.preventDefault();

@@ -1,7 +1,9 @@
 package com.tunedo.tunedo.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,13 +36,12 @@ public class CategoryService extends BaseService<Category> {
         }
     }
 
-    public List<Category> addAnotherCategory(Long id, Task task){
-        Category category= findById(id);
-        List<Category> categories = new ArrayList<>();
-        if(task.getCategories()!=null){
-            categories.addAll(task.getCategories());
+    public Set<Category> addAnotherCategory(List<Long> categoryIds, Task task){
+        Set<Category> categories = new HashSet<>();
+        for (Long categoryId : categoryIds) {
+            Category category = findById(categoryId);
+            categories.add(category);
         }
-        categories.add(category);
         return categories;
     }
 }

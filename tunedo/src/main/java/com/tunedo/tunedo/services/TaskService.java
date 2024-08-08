@@ -30,7 +30,7 @@ public class TaskService extends BaseService<Task> {
   public TaskService(BaseRepository<Task> repository, TaskRepository taskrepository) {
     super(repository);
     this.taskRepository = taskrepository;
-    this.formatter=DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy")
+    this.formatter=DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy 'a las' h:mm a")
     .withLocale(Locale.forLanguageTag("es-Es"))
     .withZone(ZoneId.systemDefault());
   }

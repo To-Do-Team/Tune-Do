@@ -2,6 +2,7 @@ package com.tunedo.tunedo.models;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tunedo.tunedo.models.enums.Status;
@@ -58,7 +59,7 @@ public class Task extends BaseModel{
         joinColumns = @JoinColumn(name = "task_id"),
         inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private List<Category> categories; 
+    private Set<Category> categories; 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore

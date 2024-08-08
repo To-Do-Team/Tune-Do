@@ -36,7 +36,7 @@ public class StatisticsService extends BaseService<Statistic>{
     }
 
     public List<Statistic> allStatistics(User user){
-        return repository.findByUser(user);
+        return repository.findByUserOrderByCreatedAtDesc(user);
     }
 
     public Map<String, List<StatisticTask>> getTasksForStatistics(Statistic statistic, Instant statisticCreationTime) {

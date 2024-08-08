@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public interface StatisticsRepository extends BaseRepository<Statistic> {
-    List<Statistic> findByUser(User user);
+    List<Statistic> findByUserOrderByCreatedAtDesc(User user);
 
     Statistic findFirstByUserOrderByCreatedAtDesc(User user);
 
