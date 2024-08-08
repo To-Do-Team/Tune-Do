@@ -75,7 +75,7 @@
     </header>
     <main>
         <div class="min-h-full bg-white border-gray-200 dark:bg-gray-900">
-            <div class="max-w-screen-xl flex flex-wrap items-start flex-end mx-auto">
+            <div class="max-w-screen-xl flex flex-wrap items-start flex-end mx-auto grid grid-cols-2">
                 <h2 class="flex inline-flex text-xl font-semibold text-center text-gray-900 dark:text-white mt-6 px-12 ml-4">
                     Hola,  
                     <div class="text-xl font-semibold text-center text-red-600 dark:text-red-600 px-2">
@@ -83,9 +83,8 @@
                     </div>
                 </h2>
                 
-                <div id="premium-links" class=" mt-4 flex inline-flex ml-56">
+                <div id="premium-links" class=" mt-4 flex inline-flex ml-8">
                     <a href="/home" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 cursor-pointer">Default mode</a>
-                    <a href="/home/categories-mode" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 cursor-pointer">Categories mode</a>
                 </div>
             </div>
             <section class="max-w-screen-xl flex flex-wrap items-start justify-between mx-auto px-4 text-white bg-white border-gray-200 dark:bg-gray-900 grid grid-cols-1 md:grid-cols-3">
