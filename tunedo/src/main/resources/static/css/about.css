@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Times+New+Roman:wght@400;700&display=swap');
+
+.font-gregori {
+    font-family: 'font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+}
+
+.nav-button {
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.nav-button:hover {
+    background-color: #ff5757;
+}
+
+.nav-button:active {
+    background-color: #c52346;
+}
+
+section {
+    scroll-margin-top: 70px;
+}
+
+footer {
+    background-color: #4f59c4;
+    color: white;
+    padding: 1.5rem;
+    margin-top: 2rem;
+}
+
+footer .social-icons a {
+    color: white;
+    margin: 0 0.5rem;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+
+footer .social-icons a:hover {
+    color: #dd389e;
+}
+
+footer .contact-info a {
+    color: white;
+    margin: 0 0.5rem;
+    text-decoration: none;
+}
+
+footer .contact-info a:hover {
+    text-decoration: underline;
+}
+
+footer .contact-info span {
+    margin-left: 0.5rem;
+}
