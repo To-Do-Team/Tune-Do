@@ -4,7 +4,10 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -100,13 +103,14 @@ public class TaskController {
             model.addAttribute("types", Type.values());
             model.addAttribute("statuses", Status.values());
             model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("reminderOptions", DueReminderOptions.values());
             User user = userService.findByEmail(principal.getName());
             task = taskService.findByUserAndId(user, id);
             if(task==null){
                 return "return:/home";
             }
             model.addAttribute("task", task);
-            return "editTask.jsp";
+            return "editTask2.jsp";
     }
     
     @PostMapping("/{id}/editing")
@@ -115,18 +119,25 @@ public class TaskController {
         @Valid @ModelAttribute("task") Task task,
         Model model,
         BindingResult result,
-        @RequestParam(value = "dueDateString", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDateLocal
+        @RequestParam(value="dueDateString", required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dueDateLocal,
+        @RequestParam(value="timeLocal", required=false) @DateTimeFormat(pattern = "HH:mm") LocalTime timeLocal,
+        @RequestParam(value="categoryIds",required=false) List<Long> categoryIds
         ) {
         if(result.hasErrors()){
             model.addAttribute("types", Type.values());
             model.addAttribute("statuses", Status.values());
             model.addAttribute("categories", categoryService.findAll());
-            return "editTask";
+            model.addAttribute("reminderOptions", DueReminderOptions.values());
+            return "editTask2.jsp";
+        }
+        if(categoryIds != null && !categoryIds.isEmpty()){
+            task.setCategories(categoryService.addAnotherCategory(categoryIds, task));
+        }
+        if(dueDateLocal!=null && timeLocal != null){
+            LocalDateTime combinedDateTime = dueDateLocal.with(timeLocal);
+            task.setDeadline(combinedDateTime.atZone(ZoneId.systemDefault()).toInstant());
         }
         Task oldTask = taskService.findById(id);
-        if(dueDateLocal!=null){
-            task.setDeadline(dueDateLocal.atZone(ZoneId.systemDefault()).toInstant());
-        }
         taskService.update(oldTask,task);
         taskService.save(oldTask);
         return "redirect:/home";

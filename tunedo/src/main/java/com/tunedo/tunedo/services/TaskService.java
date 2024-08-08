@@ -138,11 +138,17 @@ public class TaskService extends BaseService<Task> {
     if (updateDTO.getNotes() != null) {
       task.setNotes(updateDTO.getNotes());
     }
+    if (updateDTO.getDueReminder() != null) {
+      task.setDueReminder(updateDTO.getDueReminder());
+    }
     if (updateDTO.getDescription() != null) {
       task.setDescription(updateDTO.getDescription());
     }
     if (updateDTO.getDeadline() != null) {
       task.setDeadline(updateDTO.getDeadline());
+    }
+    if (updateDTO.getCategories() != null) {
+      task.setCategories(updateDTO.getCategories());
     }
     return task;
   }
