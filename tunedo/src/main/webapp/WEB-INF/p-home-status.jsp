@@ -26,7 +26,7 @@
     <header>
         <nav class="bg-white border-gray-200 dark:bg-gray-900">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+            <a href="/home" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <!-- <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/TuneTalk_Logo_%28Transparent%29.png" class="h-12" alt="Tune-Do Logo" /> -->
                 <img src="/img/logo1.png" class="h-12" alt="Tune-Do Logo" />
                 <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tune-Do</span>
@@ -97,16 +97,16 @@
                             <!-- Iterar sobre los estados -->
                             <c:forEach items="${tasksByStatus.entrySet()}" var="entry">
                                 <div class="flex items-center justify-center gap-3">
-                                    <div class="bg-white dark:bg-gray-800 p-2 rounded-lg w-auto shadow-lg">
+                                    <div class="w-full bg-white dark:bg-gray-800 p-2 rounded-lg w-auto shadow-lg">
                                         <h2 class="text-xl font-semibold text-center mb-4 text-gray-900 dark:text-white">
                                             <c:out value="${entry.key.description}" /> <!-- Mostrar estado -->
                                         </h2>
 
-                                        <div class="overflow-y-auto h-48 swim-lane custom-scrollbar" data-type="${entry.key.name()}">
+                                        <div class="w-full overflow-y-auto h-48 swim-lane custom-scrollbar" data-type="${entry.key.name()}">
                                             <!-- Repetir el bloque para cada tarea -->
                                             <c:forEach items="${entry.value}" var="task">
                                                 <div id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="task flex items-start gap-4 p-2 border-b border-gray-300 dark:border-gray-700" draggable="true">                                                    
-                                                    <div class="flex-1">
+                                                    <div class="w-full flex-1">
                                                         <h3 class="text-lg font-bold text-gray-900 dark:text-white">
                                                             <c:out value="${task.getTitle()}" />
                                                         </h3>

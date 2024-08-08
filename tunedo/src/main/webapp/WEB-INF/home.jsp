@@ -102,8 +102,8 @@
                             <c:forEach items="${tasksByType.entrySet()}" var="entry">
                                 <div class="overflow-auto flex items-center justify-center gap-4">
                                     <div class="flex flex-col bg-white dark:bg-gray-800 p-4 rounded-lg w-96 shadow-lg h-full"style="
-    height: -webkit-fill-available;
-">
+                                        height: -webkit-fill-available;
+                                        ">
                                         <h2 class="text-xl font-semibold text-center text-gray-900 dark:text-white my-3">
                                             <c:out value="${entry.getKey().getDescription()}" />
                                         </h2>
@@ -513,7 +513,7 @@
                                 <!-- Playlist items will be added here dynamically -->
                             </div>
                         </div>
-                    </div>                    
+                    </div> 
                 </div>
             </section>
         </div>
