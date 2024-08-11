@@ -52,7 +52,7 @@
             <a href="/register" class="text-indigo-600 hover:text-indigo-700 font-medium">Regístrate</a>
         </p>
         <p class="text-center text-sm text-gray-600 mt-4">
-            <a href="/register" class="text-indigo-600 hover:text-indigo-700 font-medium flex items-center">
+            <a href="/" class="text-indigo-600 hover:text-indigo-700 font-medium flex items-center">
                 <i class="fas fa-arrow-left mr-2"></i> Atrás
             </a>
         </p>        

@@ -7,23 +7,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="src\main\resources\static\css\landing.css">
-    <script src="src\main\resources\static\js\landing.js"></script>
+    <link rel="stylesheet" href="/css/landing.css">
+    <script src="/js/landing.js"></script>
     <title>Tune-Do</title>
 </head>
 
 
 <body class="bg-white pt-8">
-    <header class="bg-[#003049] text-[#FDF0D5]/80 fixed top-0 left-0 w-full z-50">
+    <header class="bg-[#003049] text-[#FDF0D5]/80 fixed top-0 left-0 w-full z-50 py-4">
         <div class="container mx-auto flex justify-between items-center py-2">
             <div class="flex items-center">
-                <img src="src\main\resources\static\img\logo.jpg" alt="Logo" class="h-10 mr-4">
-                <a href="#" class="text-3xl font-bold">Tune-Do</a>
+                <img src="img/logo.jpg" alt="Logo" class="h-10 mr-4">
+                <a href="/login" class="text-3xl font-bold">Tune-Do</a>
             </div>
             <nav class="space-x-4">
+                <a href="/" class="text-lg font-bold md:text-xl hover:text-[#669BBC]">Inicio</a>
                 <a href="#planes" class="text-xl px-2 font-bold">Planes</a>
                 <a href="#mejor-de-tune-do" class="text-xl px-2 font-bold">Características</a>
-                <a href="#acerca" class="text-xl px-2 font-bold">Acerca de</a>
+                <a href="/about" class="text-xl px-2 font-bold">Acerca de</a>
+                <a href="/login"
+                    class="bg-[#C1121F]/80 font-bold hover:bg-[#A10F1A] text-[#FDF0D5]/80 py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out text-lg md:text-xl border-2 border-[#C1121F] hover:border-[#A10F1A]">
+                    Iniciar Sesión
+                </a>
+                <a href="/register"
+                    class="bg-[#C1121F]/80 font-bold hover:bg-[#A10F1A] text-[#FDF0D5]/80 py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out text-lg md:text-xl border-2 border-[#C1121F] hover:border-[#A10F1A]">
+                    Registrarse
+                </a>
             </nav>
         </div>
     </header>
@@ -42,7 +51,7 @@
         <div
             class="flex flex-col md:flex-row bg-gradient-to-r from-[#003049]/30 to-[#669BBC]/30 p-5 rounded-lg shadow-md">
             <div class="md:w-2/3 flex-shrink-0">
-                <img src="src\main\resources\static\img\imgprincipal.jpg" alt="App Screenshot"
+                <img src="img/imgprincipal.jpg" alt="App Screenshot"
                     class="rounded-lg shadow-md w-full h-full object-cover">
             </div>
             <div
@@ -55,9 +64,9 @@
                     disfrutas de una banda sonora personalizada que te impulsa a mantenerte enfocado y motivado.
                 </p>
                 <div>
-                    <a href="#login" class="bg-[#C1121F] text-white px-4 py-2 rounded-md mr-2 inline-block">Iniciar
+                    <a href="/login" class="bg-[#C1121F] text-white px-4 py-2 rounded-md mr-2 inline-block">Iniciar
                         Sesión</a>
-                    <a href="#register" class="bg-[#C1121F] text-white px-4 py-2 rounded-md inline-block">Regístrate</a>
+                    <a href="/register" class="bg-[#C1121F] text-white px-4 py-2 rounded-md inline-block">Regístrate</a>
                 </div>
             </div>
         </div>
@@ -71,7 +80,7 @@
 
                 <div class="flex flex-col md:flex-row items-stretch bg-white rounded-lg shadow-lg">
                     <div class="md:w-1/2 p-4 flex items-center justify-center">
-                        <img src="src\main\resources\static\img\organizer.jpg" alt="Organización Eficaz"
+                        <img src="img/organizer.jpg" alt="Organización Eficaz"
                             class="w-full h-[25rem] object-cover rounded-lg shadow-md">
                     </div>
                     <div class="md:w-1/2 p-6 flex flex-col justify-center">
@@ -95,14 +104,14 @@
                             completadas impactan tu productividad y ajusta tu enfoque para mejorar constantemente.</p>
                     </div>
                     <div class="md:w-1/2 p-4 flex items-center justify-center">
-                        <img src="src\main\resources\static\img\recap.jpg" alt="Gestión Dinámica"
+                        <img src="img/recap.jpg" alt="Gestión Dinámica"
                             class="w-full h-[25rem] object-cover rounded-lg shadow-md">
                     </div>
                 </div>
 
                 <div class="flex flex-col md:flex-row items-stretch bg-white rounded-lg shadow-lg">
                     <div class="md:w-1/2 p-4 flex items-center justify-center">
-                        <img src="src\main\resources\static\img\music.jpg" alt="Música Motivadora"
+                        <img src="img/music.jpg" alt="Música Motivadora"
                             class="w-full h-[25rem] object-cover rounded-lg shadow-md">
                     </div>
                     <div class="md:w-1/2 p-6 flex flex-col justify-center">
@@ -328,7 +337,7 @@
         </div>
     </section>
 
-    <footer class="bg-[#003049] text-white py-8">
+    <footer class="bg-[#003049] text-white pt-8">
         <div class="container mx-auto flex flex-col items-center">
 
             <div class="text-center mb-6">
@@ -338,31 +347,10 @@
             </div>
 
             <div class="text-center space-y-4">
-                <a href="#login"
+                <a href="/login"
                     class="bg-[#C1121F] text-white py-3 px-6 rounded transition duration-300 hover:bg-red-800 inline-block">Iniciar
                     Sesión</a>
-                <a href="#register"
-                    class="bg-[#C1121F] text-white py-3 px-6 rounded transition duration-300 hover:bg-red-800 inline-block">Registrarse</a>
-            </div>
-        </div>
-        <div class="bg-[#669BBC] text-white py-4 mt-8 text-center">
-            <p class="text-lg font-bold">"La música es el mejor compañero en cada paso de tu vida."</p>
-        </div>
-    </footer>
-    <footer class="bg-[#003049] text-white py-8">
-        <div class="container mx-auto flex flex-col items-center">
-
-            <div class="text-center mb-6">
-                <p class="text-2xl font-bold mb-2">¿Qué estás esperando para organizar tu vida?</p>
-                <p class="text-base font-medium mb-4">Domina tu día con herramientas inteligentes y la música que te
-                    impulsa. Regístrate ahora y transforma cada tarea en una experiencia inspiradora y eficiente.</p>
-            </div>
-
-            <div class="text-center space-y-4">
-                <a href="#login"
-                    class="bg-[#C1121F] text-white py-3 px-6 rounded transition duration-300 hover:bg-red-800 inline-block">Iniciar
-                    Sesión</a>
-                <a href="#register"
+                <a href="/register"
                     class="bg-[#C1121F] text-white py-3 px-6 rounded transition duration-300 hover:bg-red-800 inline-block">Registrarse</a>
             </div>
         </div>

@@ -8,24 +8,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="src\main\resources\static\css\about.css">
+    <link rel="stylesheet" href="/css/about.css">
     <title>Sobre Tune-Do</title>
 </head>
 
 <body id="top" class="font-gregori">
-    <header class="bg-[#003049] text-[#FDF0D5]/80 w-full z-50">
-        <div class="container mx-auto flex flex-wrap justify-between items-center py-1">
+    <header class="bg-[#003049] text-[#FDF0D5]/80 top-0 left-0 w-full z-50 py-4">
+        <div class="container mx-auto flex justify-between items-center py-2">
             <div class="flex items-center flex-shrink-0">
-                <img src="src\main\resources\static\img\logo.jpg" alt="Logo" class="h-8 md:h-10 mr-2 md:mr-4">
-                <a href="#" class="font-bold text-2xl md:text-3xl">Tune-Do</a>
+                <img src="/img/logo.jpg" alt="Logo" class="h-8 md:h-10 mr-2 md:mr-4">
+                <a href="/" class="font-bold text-2xl md:text-3xl">Tune-Do</a>
             </div>
-            <nav class="flex items-center space-x-2 md:space-x-4">
-                <a href="#landingPage" class="text-lg font-bold md:text-xl hover:text-[#669BBC]">Inicio</a>
-                <a href="#"
+            <nav class="flex flex-wrap items-center space-x-2 md:space-x-4">
+                <a href="/" class="text-lg font-bold md:text-xl hover:text-[#669BBC]">Inicio</a>
+                <a href="/#planes" class="text-xl px-2 font-bold">Planes</a>
+                <a href="/#mejor-de-tune-do" class="text-xl px-2 font-bold">Características</a>
+                <a href="/about" class="text-xl px-2 font-bold">Acerca de</a>
+                <a href="/login"
                     class="bg-[#C1121F]/80 font-bold hover:bg-[#A10F1A] text-[#FDF0D5]/80 py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out text-lg md:text-xl border-2 border-[#C1121F] hover:border-[#A10F1A]">
                     Iniciar Sesión
                 </a>
-                <a href="#"
+                <a href="/register"
                     class="bg-[#C1121F]/80 font-bold hover:bg-[#A10F1A] text-[#FDF0D5]/80 py-2 px-4 rounded-full shadow-lg transition duration-300 ease-in-out text-lg md:text-xl border-2 border-[#C1121F] hover:border-[#A10F1A]">
                     Registrarse
                 </a>
@@ -87,25 +90,25 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                 <div
                     class="transform transition-transform duration-500 hover:scale-105 p-4 bg-[#669BBC] rounded-lg relative overflow-hidden">
-                    <img src="src\main\resources\static\img\Amigable.jpg" alt="Descripción de la imagen"
+                    <img src="/img/Amigable.jpg" alt="Descripción de la imagen"
                         class="w-full h-48 object-cover mb-4 rounded-md">
                     <p class="text-lg font-semibold text-white">Amigable</p>
                 </div>
                 <div
                     class="transform transition-transform duration-500 hover:scale-105 p-4 bg-[#669BBC] rounded-lg relative overflow-hidden">
-                    <img src="src\main\resources\static\img\Intuitiva.jpg" alt="Descripción de la imagen"
+                    <img src="/img/Intuitiva.jpg" alt="Descripción de la imagen"
                         class="w-full h-48 object-cover mb-4 rounded-md">
                     <p class="text-lg font-semibold text-white">Intuitiva</p>
                 </div>
                 <div
                     class="transform transition-transform duration-500 hover:scale-105 p-4 bg-[#669BBC] rounded-lg relative overflow-hidden">
-                    <img src="src\main\resources\static\img\profesional.jpg" alt="Descripción de la imagen"
+                    <img src="/img/profesional.jpg" alt="Descripción de la imagen"
                         class="w-full h-48 object-cover mb-4 rounded-md">
                     <p class="text-lg font-semibold text-white">Profesional</p>
                 </div>
                 <div
                     class="transform transition-transform duration-500 hover:scale-105 p-4 bg-[#669BBC] rounded-lg relative overflow-hidden">
-                    <img src="src\main\resources\static\img\Confiable.jpg" alt="Descripción de la imagen"
+                    <img src="/img/Confiable.jpg" alt="Descripción de la imagen"
                         class="w-full h-48 object-cover mb-4 rounded-md">
                     <p class="text-lg font-semibold text-white">Confiable</p>
                 </div>
@@ -125,7 +128,7 @@
                         <div class="flex flex-col items-center justify-between p-6 h-full relative z-10">
                             <p class="text-md font-medium text-white mb-4">Estudiantes universitarios que necesitan
                                 organizar su tiempo y tareas con música de fondo.</p>
-                            <img src="src\main\resources\static\img\Estudiantes.jpg" alt="Estudiantes Universitarios"
+                            <img src="/img/Estudiantes.jpg" alt="Estudiantes Universitarios"
                                 class="w-full h-40 object-cover rounded-md">
                         </div>
                     </div>
@@ -137,7 +140,7 @@
                         <div class="flex flex-col items-center justify-between p-6 h-full relative z-10">
                             <p class="text-md font-medium text-white mb-4">Profesionales jóvenes que buscan una
                                 aplicación de productividad que también les proporcione una experiencia entretenida.</p>
-                            <img src="src\main\resources\static\img\Profesionales.jpg" alt="Profesionales Jóvenes"
+                            <img src="/img/Profesionales.jpg" alt="Profesionales Jóvenes"
                                 class="w-full h-40 object-cover rounded-md">
                         </div>
                     </div>
@@ -149,7 +152,7 @@
                         <div class="flex flex-col items-center justify-between p-6 h-full relative z-10">
                             <p class="text-md font-medium text-white mb-4">Freelancers y trabajadores remotos que desean
                                 gestionar su carga de trabajo diaria mientras disfrutan de su música favorita.</p>
-                            <img src="src\main\resources\static\img\Freelancers.jpg" alt="Freelancers y Trabajadores Remotos"
+                            <img src="/img/Freelancers.jpg" alt="Freelancers y Trabajadores Remotos"
                                 class="w-full h-40 object-cover rounded-md">
                         </div>
                     </div>
@@ -277,7 +280,7 @@
                     </div>
                     <div class="flex flex-col items-center justify-center h-full p-4 relative z-10">
                         <h3 class="text-lg text-white mb-4 text-center">Innovación</h3>
-                        <img src="src\main\resources\static\img\Innovacion.jpg" alt="Valor 1"
+                        <img src="/img/Innovacion.jpg" alt="Valor 1"
                             class="w-28 h-28 object-cover rounded-full border-4 border-[#669BBC] mb-2">
                         <p class="text-sm font-medium text-white text-justify">Nos esforzamos por ofrecer soluciones
                             creativas y novedosas que mejoren la gestión del tiempo y la productividad.</p>
@@ -290,7 +293,7 @@
                     </div>
                     <div class="flex flex-col items-center justify-center h-full p-4 relative z-10">
                         <h3 class="text-lg text-white mb-4 text-center">Calidad</h3>
-                        <img src="src\main\resources\static\img\Calidad.jpg" alt="Valor 2"
+                        <img src="/img/Calidad.jpg" alt="Valor 2"
                             class="w-28 h-28 object-cover rounded-full border-4 border-[#669BBC] mb-2">
                         <p class="text-sm font-medium text-white text-justify">Comprometidos con la excelencia en el
                             diseño y funcionalidad de nuestra aplicación.</p>
@@ -303,7 +306,7 @@
                     </div>
                     <div class="flex flex-col items-center justify-center h-full p-4 relative z-10">
                         <h3 class="text-lg text-white mb-4 text-center">Empatía</h3>
-                        <img src="src\main\resources\static\img\Empatia.jpg" alt="Valor 3"
+                        <img src="/img/Empatia.jpg" alt="Valor 3"
                             class="w-28 h-28 object-cover rounded-full border-4 border-[#669BBC] mb-2">
                         <p class="text-sm font-medium text-white text-justify">Entendemos las necesidades de nuestros
                             usuarios y trabajamos para proporcionarles una herramienta que realmente les ayude.</p>
@@ -316,7 +319,7 @@
                     </div>
                     <div class="flex flex-col items-center justify-center h-full p-4 relative z-10">
                         <h3 class="text-lg text-white mb-4 text-center">Simplicidad</h3>
-                        <img src="src\main\resources\static\img\Simplicidad.jpg" alt="Valor 4"
+                        <img src="/img/Simplicidad.jpg" alt="Valor 4"
                             class="w-28 h-28 object-cover rounded-full border-4 border-[#669BBC] mb-2">
                         <p class="text-sm font-medium text-white text-justify">Diseñamos una interfaz intuitiva y fácil
                             de usar para que todos los usuarios, independientemente de su nivel técnico, puedan

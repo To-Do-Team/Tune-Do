@@ -31,6 +31,14 @@ public class WebSecurityConfig {
                 .permitAll()
                 .requestMatchers(
                     HttpMethod.GET,
+                    "/") // "/landing"
+                .permitAll()
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/about") // "/about"
+                .permitAll()
+                .requestMatchers(
+                    HttpMethod.GET,
                     "/login") // "/login"
                 .permitAll()
                 .requestMatchers(

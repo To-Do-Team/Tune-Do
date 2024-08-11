@@ -108,16 +108,16 @@
                                             <c:out value="${entry.getKey().getDescription()}" />
                                         </h2>
 
-                                        <div class="grow overflow-y-auto h-full max-h-[80%] swim-lane custom-scrollbar bg-gray-700 rounded-lg" data-type="${entry.getKey().name()}">
+                                        <div class="grow overflow-y-auto h-full max-h-[80%] swim-lane custom-scrollbar bg-gray-200 dark:bg-gray-700 rounded-lg" data-type="${entry.getKey().name()}">
                                             <!-- Repeat the above block for each task -->
                                             <c:forEach items="${entry.getValue()}" var="task">
                                                 <div id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" 
-                                                class="my-2 bg-gray-800 rounded-lg task flex items-center gap-4 p-2 border-b border-gray-300 dark:border-gray-700" draggable="true">                                                    
+                                                class="my-2 bg-gray-400 dark:bg-gray-800 rounded-lg task flex items-center gap-4 p-2 border-b border-gray-300 dark:border-gray-700" draggable="true">                                                    
                                                     <div class="flex-1">
-                                                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                                                        <h3 class="text-lg font-bold text-white dark:text-gray-900 dark:text-white">
                                                             <c:out value="${task.getTitle()}" />
                                                         </h3>
-                                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                                        <p class="mt-1 text-sm text-white dark:text-gray-500 dark:text-gray-400">
                                                             <c:out value="${task.getDescription()}" />
                                                         </p>
                                                         <div class="flex flex-col gap-3 mt-4 mb-4">
@@ -293,34 +293,23 @@
                         </div>
                         <!-- Cuadro de tarea -->
                         <c:forEach items="${donesOnly.entrySet()}" var="entry">
-                        <div class="overflow-y-auto h-48 swim-lane" data-type="${entry.getKey().name()}">
+                        <div class="overflow-y-auto h-48 swim-lane bg-gray-200 dark:bg-gray-700 rounded-lg" data-type="${entry.getKey().name()}">
                             <%-- <ul class="space-y-2"> --%>
-                                    <c:forEach items="${entry.getValue()}" var="task">
-                                        <%-- <div id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="taskL task flex items-center bg-gray-100 dark:bg-gray-700 p-2 rounded-lg my-2" draggable="true">
-                                            <div class="flex-grow ml-2">
-                                                <div class="flex justify-between">
-                                                    <span class="text-sm text-gray-900 dark:text-gray-200">
-                                                        <c:out value="${task.getTitle()}" />
-                                                    </span>
-                                                </div>
-                                                <div class="text-sm text-gray-500 dark:text-gray-400">
-                                                    <c:out value="${task.getDescription()}" />
-                                                </div>
-                                            </div>
-                                        </div> --%>
-                                        <div id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" class="task flex items-start gap-4 p-2 border-b border-gray-300 dark:border-gray-700" draggable="true">                                                    
+                                <c:forEach items="${entry.getValue()}" var="task">
+                                                <div id="${task.id}" data-pos="${String.valueOf(task.getPosition())}" 
+                                                class="my-2 bg-gray-400 dark:bg-gray-800 rounded-lg task taskL flex items-center gap-4 p-2 border-b border-gray-300 dark:border-gray-700" draggable="true">                                                    
                                                     <div class="flex-1">
-                                                        <h3 class="text-lg font-bold text-gray-900 dark:text-white">
+                                                        <h3 class="text-lg font-bold text-white dark:text-gray-900 dark:text-white">
                                                             <c:out value="${task.getTitle()}" />
                                                         </h3>
-                                                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                                        <p class="mt-1 text-sm text-white dark:text-gray-500 dark:text-gray-400">
                                                             <c:out value="${task.getDescription()}" />
                                                         </p>
-                                                        <div class="mt-4 mb-4">
-                                                            <span class="text-sm text-gray-500 dark:text-gray-400"><c:out value="${task.getDeadlineFormatted()}" /></span>
+                                                        <div class="flex flex-col gap-3 mt-4 mb-4">
+                                                            <span class="text-xs text-white-500 dark:text-gray-400"><c:out value="${task.getDeadlineFormatted()}" /></span>
 
                                                             <button id="dropdownHoverButton-${task.id}" data-dropdown-toggle="dropdownHover-${task.id}" data-dropdown-trigger="hover"
-                                                            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-1 py-1 text-center inline-flex items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" 
+                                                            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-1 py-1 text-center inline-flex max-w-max items-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" 
                                                             type="button"><c:out value="${task.getStatus().description}"/> 
                                                             <svg class="w-2.5 h-2.5 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
@@ -360,7 +349,7 @@
                                                         <div id="tooltip-${task.getId()}" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                                                             Ver detalles
                                                             <div class="tooltip-arrow" data-popper-arrow></div>
-                                                        </div>                                                      
+                                                        </div>                                                 
                                                         <!-- Main modal -->
                                                         <div id="modal-${task.id}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                                             <div class="relative p-4 w-full max-w-md max-h-full">
@@ -453,16 +442,16 @@
                                                                         </c:if>                                          
                                                                     </div>
                                                                     <!-- Modal footer -->
-                                                                    <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                                    <%-- <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
                                                                         <button data-modal-hide="modal-${task.id}" type="button" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">I accept</button>
                                                                         <button data-modal-hide="modal-${task.id}" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Decline</button>
-                                                                    </div>
+                                                                    </div> --%>
                                                                 </div>
                                                             </div>
                                                         </div>         
                                                     </div>
                                                 </div>
-                                </c:forEach>
+                                            </c:forEach>
                             <%-- </ul> --%>
                         </div>
                         </c:forEach>

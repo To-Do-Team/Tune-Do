@@ -28,6 +28,8 @@ import com.tunedo.tunedo.models.enums.Type;
 import com.tunedo.tunedo.services.StatisticsService;
 import com.tunedo.tunedo.services.TaskService;
 import com.tunedo.tunedo.services.UserService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -45,7 +47,7 @@ public class HomeController {
         this.userService = userService;
         this.taskService = taskService;
         this.statisticsService=statisticsService;
-    }
+    }    
 
     @GetMapping("")
     public String home(
