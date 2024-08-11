@@ -110,7 +110,7 @@ public class TaskController {
                 return "return:/home";
             }
             model.addAttribute("task", task);
-            return "editTask2.jsp";
+            return "editTask.jsp";
     }
     
     @PostMapping("/{id}/editing")
@@ -128,7 +128,7 @@ public class TaskController {
             model.addAttribute("statuses", Status.values());
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("reminderOptions", DueReminderOptions.values());
-            return "editTask2.jsp";
+            return "editTask.jsp";
         }
         if(categoryIds != null && !categoryIds.isEmpty()){
             task.setCategories(categoryService.addAnotherCategory(categoryIds, task));
