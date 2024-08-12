@@ -1,0 +1,26 @@
+.pricing-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pricing-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.plan-badge {
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+}
+
+.background-shape {
+    position: absolute;
+    border-radius: 9999px;
+    opacity: 0.2;
+}
+span.w-3.h-3 {
+    width: 0.75rem; /* Ajusta el tamaño según sea necesario */
+    height: 0.75rem; /* Ajusta el tamaño según sea necesario */
+    margin-right: 0.5rem; /* Espaciado entre el bullet y el texto */
+    border-radius: 9999px; /* Hace el span redondo */
+}

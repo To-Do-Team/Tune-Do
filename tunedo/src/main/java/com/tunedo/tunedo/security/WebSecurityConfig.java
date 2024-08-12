@@ -25,9 +25,17 @@ public class WebSecurityConfig {
             (auth) -> auth
                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR)
                 .permitAll()
-                .requestMatchers("/css/**","/js/**")
+                .requestMatchers("/css/**","/js/**","/img/**")
                 .permitAll()
                 .requestMatchers("/email/**")
+                .permitAll()
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/") // "/landing"
+                .permitAll()
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/about") // "/about"
                 .permitAll()
                 .requestMatchers(
                     HttpMethod.GET,
@@ -47,10 +55,14 @@ public class WebSecurityConfig {
                 .permitAll()
                 .requestMatchers(
                     HttpMethod.GET,
-                    "/home")
+                    "/home/*","/home/**")
                 .authenticated()
                 .requestMatchers(
                     HttpMethod.GET,
+                    "/statistics/*", "/statistics/**")
+                .authenticated()
+                .requestMatchers(
+                    HttpMethod.POST,
                     "/statistics/*", "/statistics/**")
                 .authenticated()
                 .requestMatchers(
@@ -75,8 +87,8 @@ public class WebSecurityConfig {
             .deleteCookies("JSESSIONID"))
         .sessionManagement(session -> session
             .maximumSessions(1)
-            .expiredUrl("/login"))
-        .httpBasic(Customizer.withDefaults());
+            .expiredUrl("/login"));/* 
+        .httpBasic(Customizer.withDefaults()); */
 
     return http.build();
     }

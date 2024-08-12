@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.eclipse.tags.shaded.org.apache.regexp.recompile;
 import org.springframework.stereotype.Service;
 
 import com.tunedo.tunedo.models.Task;
@@ -29,7 +30,7 @@ public class TaskService extends BaseService<Task> {
   public TaskService(BaseRepository<Task> repository, TaskRepository taskrepository) {
     super(repository);
     this.taskRepository = taskrepository;
-    this.formatter=DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy")
+    this.formatter=DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy 'a las' h:mm a")
     .withLocale(Locale.forLanguageTag("es-Es"))
     .withZone(ZoneId.systemDefault());
   }
@@ -69,21 +70,52 @@ public class TaskService extends BaseService<Task> {
     return taskRepository.findByUserAndTypeOrderByPositionAsc(user, type);
   }
 
-  public Map<Type, List<Task>> rearrangeTasks(List<Task> tasks) {
+  public List<Map<Type, List<Task>>> rearrangeTasks(List<Task> tasks) {
     Map<Type, List<Task>> tasksByType = new EnumMap<>(Type.class);
+    Map<Type, List<Task>> onlyDones = new EnumMap<>(Type.class);
+    List<Map<Type, List<Task>>> returned = new ArrayList<>();
     for (Type type : Type.values()) {
-      tasksByType.put(type, new ArrayList<>());
+      if(type.name()=="Done"){
+        onlyDones.put(type,new ArrayList<>());
+      } else{
+      tasksByType.put(type, new ArrayList<>());}
+      /* tasksByType.put(type, new ArrayList<>()); */
     }
     for (Task task : tasks) {
-      task.setDeadlineFormatted(formatter.format(task.getDeadline()));
+      if(task.getDeadline()!=null){
+        task.setDeadlineFormatted(formatter.format(task.getDeadline()));
+      }
       for (Type type : Type.values()) {
         if (task.getType() == type) {
-          tasksByType.get(type).add(task);
+          if(type.name()=="Done"){
+            onlyDones.get(type).add(task);
+          } else{
+            tasksByType.get(type).add(task);
+          }
         }
       }
     }
-    return tasksByType;
+    returned.add(tasksByType);
+    returned.add(onlyDones);
+    return returned;
   }
+
+  public List<Map<Status, List<Task>>> rearrangeTasksStatus(List<Task> tasks) {
+    Map<Status, List<Task>> tasksByStatus = new EnumMap<>(Status.class);
+    for (Status status : Status.values()) {
+        tasksByStatus.put(status, new ArrayList<>());
+    }
+    for (Task task : tasks) {
+        if (task.getDeadline() != null) {
+            task.setDeadlineFormatted(formatter.format(task.getDeadline()));
+        }
+        Status status = task.getStatus();
+        tasksByStatus.get(status).add(task);
+    }
+    List<Map<Status, List<Task>>> returned = new ArrayList<>();
+    returned.add(tasksByStatus);
+    return returned;
+}
 
   public Task updateTaskfromDTO(Task task, TaskUpdateDTO updateDTO) {
     if (updateDTO.getType() != null) {
@@ -123,12 +155,27 @@ public class TaskService extends BaseService<Task> {
     if (updateDTO.getNotes() != null) {
       task.setNotes(updateDTO.getNotes());
     }
+    if (updateDTO.getDueReminder() != null) {
+      task.setDueReminder(updateDTO.getDueReminder());
+    }
     if (updateDTO.getDescription() != null) {
       task.setDescription(updateDTO.getDescription());
     }
     if (updateDTO.getDeadline() != null) {
       task.setDeadline(updateDTO.getDeadline());
     }
+    if (updateDTO.getCategories() != null) {
+      task.setCategories(updateDTO.getCategories());
+    }
     return task;
+  }
+
+  public List<Task> getTasksDone(User user){
+    List<Task> tasks = taskRepository.findByUserAndStatus(user, Status.Done);
+    return tasks;
+  }
+
+  public List<Task> findByUserAndCreatedAtBefore(User user, Instant statisticCreationTime) {
+    return taskRepository.findByUserAndCreatedAtBefore( user,  statisticCreationTime);
   }
 }

@@ -1,50 +1,47 @@
 package com.tunedo.tunedo.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.tunedo.tunedo.models.Category;
 import com.tunedo.tunedo.models.Task;
 import com.tunedo.tunedo.models.enums.DefaultCategories;
 import com.tunedo.tunedo.repositories.BaseRepository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-
 @Service
 public class CategoryService extends BaseService<Category> {
 
+    private static final Logger logger = LoggerFactory.getLogger(CategoryService.class);
+
     public CategoryService(BaseRepository<Category> repository) {
         super(repository);
-    }
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
-
-    @Transactional
-    public void populateInitialCategories() {
-        long count = entityManager.createQuery("SELECT COUNT(c) FROM Category c", Long.class).getSingleResult();
-        if (count == 0) {
-            for (DefaultCategories defaultCategory : DefaultCategories.values()) {
-                Category category = new Category();
-                        category.setName(defaultCategory.getName());
-                        category.setDescription(defaultCategory.getDescription());
-                        entityManager.persist(category);
+        try {
+            if(repository.count()==0){
+                for (DefaultCategories defaultCategory : DefaultCategories.values()) {
+                    Category category = new Category();
+                            category.setName(defaultCategory.getName());
+                            category.setDescription(defaultCategory.getDescription());
+                            repository.save(category);
+                }
             }
+        } catch (Exception e) {
+            logger.info("initial categories already created", e);
         }
     }
 
-    public List<Category> addAnotherCategory(Long id, Task task){
-        Category category= findById(id);
-        List<Category> categories = new ArrayList<>();
-        if(task.getCategories()!=null){
-            categories.addAll(task.getCategories());
+    public Set<Category> addAnotherCategory(List<Long> categoryIds, Task task){
+        Set<Category> categories = new HashSet<>();
+        for (Long categoryId : categoryIds) {
+            Category category = findById(categoryId);
+            categories.add(category);
         }
-        categories.add(category);
         return categories;
     }
 }

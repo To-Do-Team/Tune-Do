@@ -1,5 +1,6 @@
 package com.tunedo.tunedo.controllers;
 
+import java.security.Principal;
 import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -41,11 +42,16 @@ public class UserController {
     @GetMapping("/login")
     public String login(
         @ModelAttribute("user") User user,
+        Principal principal,
         @RequestParam(value="error", required=false) String error,
         @RequestParam(value="logout", required=false) String logout,
         @RequestParam(value="registered", required=false) String registered,
         Model model
     ) {
+        if(principal!=null){
+            if(userService.existsByEmail(principal.getName()))            
+                return "redirect:/home";
+        }
         if(error != null) {
             model.addAttribute("errorMessage", "Usuario o contraseña incorrectos."+error);
         }

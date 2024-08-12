@@ -2,8 +2,12 @@ package com.tunedo.tunedo.controllers;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -26,8 +30,6 @@ import com.tunedo.tunedo.services.TaskService;
 import com.tunedo.tunedo.services.UserService;
 
 import jakarta.validation.Valid;
-
-
 
 @Controller
 @RequestMapping("/tasks")
@@ -60,8 +62,9 @@ public class TaskController {
         BindingResult result,
         Principal principal,
         Model model,
-        @RequestParam(value="dueDateString", required=false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDateLocal,
-        @RequestParam("category") Long categoryId
+        @RequestParam(value="dueDateString", required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dueDateLocal,
+        @RequestParam(value="timeLocal", required=false) @DateTimeFormat(pattern = "HH:mm") LocalTime timeLocal,
+        @RequestParam("categoryIds") List<Long> categoryIds
     ) {
         if(result.hasErrors()){
             model.addAttribute("types", Type.values());
@@ -70,11 +73,12 @@ public class TaskController {
             model.addAttribute("reminderOptions", DueReminderOptions.values());
             return "newTask.jsp";
         }
-        if(categoryId!=null){
-            task.setCategories(categoryService.addAnotherCategory(categoryId, task));
+        if(categoryIds != null && !categoryIds.isEmpty()){
+            task.setCategories(categoryService.addAnotherCategory(categoryIds, task));
         }
-        if(dueDateLocal!=null){
-            task.setDeadline(dueDateLocal.atZone(ZoneId.systemDefault()).toInstant());
+        if(dueDateLocal!=null && timeLocal != null){
+            LocalDateTime combinedDateTime = dueDateLocal.with(timeLocal);
+            task.setDeadline(combinedDateTime.atZone(ZoneId.systemDefault()).toInstant());
         }
         User user = userService.findByEmail(principal.getName());
         List<Task> lastTask = taskService.findByUserAndType(user, task.getType());
@@ -99,6 +103,7 @@ public class TaskController {
             model.addAttribute("types", Type.values());
             model.addAttribute("statuses", Status.values());
             model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("reminderOptions", DueReminderOptions.values());
             User user = userService.findByEmail(principal.getName());
             task = taskService.findByUserAndId(user, id);
             if(task==null){
@@ -108,30 +113,33 @@ public class TaskController {
             return "editTask.jsp";
     }
     
-
     @PostMapping("/{id}/editing")
     public String saveEdit(
         @PathVariable("id") Long id,
         @Valid @ModelAttribute("task") Task task,
         Model model,
         BindingResult result,
-        @RequestParam("dueDateString") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") LocalDateTime dueDateLocal
+        @RequestParam(value="dueDateString", required=false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dueDateLocal,
+        @RequestParam(value="timeLocal", required=false) @DateTimeFormat(pattern = "HH:mm") LocalTime timeLocal,
+        @RequestParam(value="categoryIds",required=false) List<Long> categoryIds
         ) {
         if(result.hasErrors()){
             model.addAttribute("types", Type.values());
             model.addAttribute("statuses", Status.values());
             model.addAttribute("categories", categoryService.findAll());
-            return "editTask";
+            model.addAttribute("reminderOptions", DueReminderOptions.values());
+            return "editTask.jsp";
+        }
+        if(categoryIds != null && !categoryIds.isEmpty()){
+            task.setCategories(categoryService.addAnotherCategory(categoryIds, task));
+        }
+        if(dueDateLocal!=null && timeLocal != null){
+            LocalDateTime combinedDateTime = dueDateLocal.with(timeLocal);
+            task.setDeadline(combinedDateTime.atZone(ZoneId.systemDefault()).toInstant());
         }
         Task oldTask = taskService.findById(id);
-        if(dueDateLocal!=null){
-            task.setDeadline(dueDateLocal.atZone(ZoneId.systemDefault()).toInstant());
-        }
         taskService.update(oldTask,task);
         taskService.save(oldTask);
         return "redirect:/home";
     }
-    
-    
-    
 }
