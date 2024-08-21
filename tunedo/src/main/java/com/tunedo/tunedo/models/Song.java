@@ -1,6 +1,5 @@
 package com.tunedo.tunedo.models;
 
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
