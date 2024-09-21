@@ -137,7 +137,6 @@
                 </form:select> --%>
                 <form:label path="type">Tipo de tarea:</form:label>
                 <form:select path="type" name="tipos" id="importance-select" class="w-full p-4 bg-gray-100 placeholder-gray-500 rounded-md">
-                    <option value="" disabled selected>Seleccionar</option>
                 <c:forEach items="${types}" var="type">
                     <form:option value="${type}">
                         <c:out value="${type.description}" />

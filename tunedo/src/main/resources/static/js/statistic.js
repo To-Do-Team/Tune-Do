@@ -1,27 +1,30 @@
-const generateStatistic= ()=>{
-    fetch('/statistics/generate-statistics', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        credentials: 'same-origin' 
-    })
-    .then(response =>{
+const generateStatistic = async () => {
+    try {
+        const response = await fetch('/statistics/generate-statistics', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'same-origin'
+        });
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.text();
-    })
-    .then(data => {
+
+        const data = await response.text();
         console.log('Success:', data);
-        Swal.fire({
-            title: '¡Genial!',
-            text: 'Puedes ver como terminaste tu día en la barra superior "Mi diario"',
-            icon: 'success',
-            confirmButtonText: 'Gracias'
-            });
+        swalEndDay();
+    } catch (error) {
+        console.error('Error:', error);
     }
-    )
-    .catch((error) => console.error('Error:', error));
+}
+
+const swalEndDay = () => {
+    Swal.fire({
+        title: '¡Genial!',
+        text: 'Puedes ver como terminaste tu día en la barra superior "Mi diario"',
+        icon: 'success',
+        confirmButtonText: 'Gracias'
+    })
 }

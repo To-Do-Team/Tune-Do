@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.eclipse.tags.shaded.org.apache.regexp.recompile;
 import org.springframework.stereotype.Service;
 
 import com.tunedo.tunedo.models.Task;
@@ -17,7 +16,6 @@ import com.tunedo.tunedo.models.User;
 import com.tunedo.tunedo.models.dto.TaskUpdateDTO;
 import com.tunedo.tunedo.models.enums.Status;
 import com.tunedo.tunedo.models.enums.Type;
-import com.tunedo.tunedo.repositories.BaseRepository;
 import com.tunedo.tunedo.repositories.TaskRepository;
 
 @Service
@@ -27,8 +25,8 @@ public class TaskService extends BaseService<Task> {
 
   private final DateTimeFormatter formatter;
 
-  public TaskService(BaseRepository<Task> repository, TaskRepository taskrepository) {
-    super(repository);
+  public TaskService(TaskRepository taskrepository) {
+    super(taskrepository);
     this.taskRepository = taskrepository;
     this.formatter=DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy 'a las' h:mm a")
     .withLocale(Locale.forLanguageTag("es-Es"))

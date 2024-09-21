@@ -74,13 +74,17 @@ document.addEventListener('DOMContentLoaded', function () {
             const dropdownId = this.getAttribute('data-dropdown-toggle');
             const dropdownMenu = document.getElementById(dropdownId);
 
-            dropdownMenu.querySelectorAll('a').forEach(function (dropdownItem) {
-                dropdownItem.addEventListener('click', function (event) {
-                    if (this.textContent.trim() === 'Done') {
-                        taskElement.classList.add('task-opacity');
-                    }
-                });
-            });
+            dropdownLogic(dropdownMenu,taskElement);
         });
     });
 });
+
+const dropdownLogic = (dropdownMenu,taskElement) => {
+    dropdownMenu.querySelectorAll('a').forEach(function (dropdownItem) {
+        dropdownItem.addEventListener('click', function () {
+            if (this.textContent.trim() === 'Done') {
+                taskElement.classList.add('task-opacity');
+            }
+        });
+    });
+}
